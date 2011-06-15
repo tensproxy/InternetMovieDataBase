@@ -29,20 +29,20 @@ public class IMDBAPIManager {
 		//"http://imdbapi.poromenos.org/js/?t=",
 	};
 
-	public Entry scrape(Entry inAbstractEntry) {
+	public Entry scrape(Entry inEntry) {
 		
 		String APIString = null;
-		Entry scrapedLocalEntry = null;
+		Entry scrapedEntry = null;
 		try {
-			APIString = FasadeLayer3.getAPIEntry(IMDBAPIables[0].createURL(inAbstractEntry.getID()));
+			APIString = FasadeLayer3.getAPIEntry(IMDBAPIables[0].createURL(inEntry.getID()));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
 		
-		scrapedLocalEntry = IMDBAPIables[0].builtUpLocalEntry(inAbstractEntry, APIString);
-
-		return scrapedLocalEntry;
+		//TODO fetch Request Errors
+		scrapedEntry = IMDBAPIables[0].constructEntry(inEntry, APIString);
+		return scrapedEntry;
 	}
 }

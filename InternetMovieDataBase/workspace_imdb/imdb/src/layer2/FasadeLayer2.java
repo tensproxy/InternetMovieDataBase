@@ -2,10 +2,12 @@ package layer2;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
@@ -58,5 +60,17 @@ public class FasadeLayer2 {
 		return new BufferedReader(
 				new InputStreamReader(
 						new URL(getAPIURL).openConnection().getInputStream())).readLine();
+	}
+
+	public static void writeTXT(String inFileLocation, String inString) {
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter(
+					inFileLocation));
+			out.write(inString);
+			out.close();
+		} catch (IOException e) {
+			System.out.println("Exception ");
+
+		}
 	}
 }

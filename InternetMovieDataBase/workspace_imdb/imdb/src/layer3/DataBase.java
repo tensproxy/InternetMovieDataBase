@@ -23,8 +23,8 @@ public class DataBase {
 		return this.one;
 	}
 	
-	public Iterator<Entry> getOneIterator(){
-		return this.getOne().iterator();
+	public Iterator<Entry> getTwoIterator(){
+		return this.getTwo().iterator();
 	}
 
 	private LinkedList<Entry> getTwo() {
@@ -65,7 +65,7 @@ public class DataBase {
 		FasadeLayer3.toString("one", this.getOne()) + 
 		FasadeLayer3.toString("two", this.getTwo()) + 
 		FasadeLayer3.toString("three", this.getThree()) +
-		FasadeLayer3.toString("three", this.getThree()) +
+		FasadeLayer3.toString("four", this.getFour()) +
 		"" ;
 	}
 
@@ -101,7 +101,7 @@ public class DataBase {
 	public void removeAlreadySerializedMovies() {
 		final LinkedList<Entry> removeEntries = new LinkedList<Entry>();
 		for ( Entry e : this.getTwo() ) {
-			if ( ! this.getOne().contains(e) ) {
+			if ( this.getOne().contains(e) ) {
 				removeEntries.add(e);
 			}
 		} 
@@ -113,8 +113,21 @@ public class DataBase {
 	public void serializeScrapedMovies(String inFileLocation) throws FileNotFoundException, IOException, ClassNotFoundException {
 		FasadeLayer3.setSerializedDB(inFileLocation, this.getOne());
 	}
+	
+	public void writeTXT(String inFileLocation) throws FileNotFoundException, IOException, ClassNotFoundException {
+		System.out.println(this.getOne().toString());
+		FasadeLayer3.writeTXT(inFileLocation, this.getOne().toString());
+	}
 
 	public int sizeOne() {
 		return this.getOne().size();
+	}
+
+	public void removeTwo(Entry aScrapedEntry) {
+		this.two.remove(aScrapedEntry);
+	}
+
+	public int sizeTwo() {
+		return this.getTwo().size();
 	}
 }

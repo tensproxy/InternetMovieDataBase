@@ -4,6 +4,5 @@ public interface IMDBAPIable {
 	
 	public String createURL(String inID);
 
-	public Entry builtUpLocalEntry(Entry inAbstractEntry, String scrapedString);
-
+	public Entry constructEntry(Entry inAbstractEntry, String scrapedString);
 }

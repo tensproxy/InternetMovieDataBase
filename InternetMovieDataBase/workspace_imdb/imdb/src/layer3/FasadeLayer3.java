@@ -116,4 +116,8 @@ public class FasadeLayer3 {
 	public static void log(String string) {
 		System.out.println(string);
 	}
+
+	public static void writeTXT(String inFileLocation, String inString) {
+		layer2.FasadeLayer2.writeTXT(inFileLocation, inString);
+	}
 }

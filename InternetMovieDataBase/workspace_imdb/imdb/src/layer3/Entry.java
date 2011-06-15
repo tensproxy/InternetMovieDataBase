@@ -41,13 +41,13 @@ public class Entry implements Serializable{
 		this.setLanguage(inLanguage);
 	}
 	
-	public static Entry buildFullEntry(Entry inEntry, String[] inParameters, int inIID) {
-		if ( inEntry.getID().equals(inParameters[inIID]) ) {
+	public static Entry constructEntry(Entry inEntry, String[] inParameters, int inIID) {
+		if ( ! inEntry.getID().equals(inParameters[inIID]) ) {
 			for ( int i = Entry.OFFSET; i < Entry.LENGTH ; i++ ) {
 				inEntry.parameters[i] = inParameters[ i - Entry.OFFSET];
 			}				
 		} else { // TODO
-			throw new RuntimeException ("inEntry.getId() fucked up: " + inEntry.getID());
+			System.err.println("BÄM!");
 		}
 		return inEntry;
 	}

@@ -7,8 +7,8 @@ public class IMDBAPIable_com_imdbapi extends IMDBAPIAbstract implements IMDBAPIa
 	}
 
 	@Override
-	public Entry builtUpLocalEntry (Entry inEntry, String scrapedString) {
-		
+	public Entry constructEntry (Entry inEntry, String scrapedString) {
+
 		scrapedString = scrapedString.replace("{", "");
 		scrapedString = scrapedString.replace("}", "");
 		String[] key_value = scrapedString.split("\",\"");
@@ -17,11 +17,10 @@ public class IMDBAPIable_com_imdbapi extends IMDBAPIAbstract implements IMDBAPIa
 			int lastDoubleQuote = key_value[j].lastIndexOf('"');
 			key_value[j] = key_value[j].substring(lastDoubleQuote+1);
 		}
-		
 		String temp = key_value[13];
 		key_value[13] = key_value[14];
 		key_value[14] = temp;
 				
-		return Entry.buildFullEntry(inEntry, key_value, 13);
+		return Entry.constructEntry(inEntry, key_value, 13);
 	}
 }
