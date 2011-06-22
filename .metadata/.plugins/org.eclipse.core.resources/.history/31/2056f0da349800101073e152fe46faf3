@@ -1,0 +1,13 @@
+package layer3;
+
+public class Thingy {
+
+	public static String convert(EntryList<Entry> inList, String string) {
+		
+		for ( Entry e : inList ){
+			
+		}
+		return null;
+	}
+
+}

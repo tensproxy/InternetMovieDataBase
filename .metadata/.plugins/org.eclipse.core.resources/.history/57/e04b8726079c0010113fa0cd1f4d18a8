@@ -1,0 +1,49 @@
+package test;
+
+import static org.junit.Assert.*;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import layer2.FL2;
+import layer3.Entry;
+
+import org.junit.Test;
+
+
+public class EntryTest {
+	
+	@Test
+	public void testInit(){
+		String test = "test";
+		Entry e = new Entry(test, test);
+		assertEquals(Entry.DEFAULT, e.getActors());
+		assertEquals(test, e.getID());
+		assertSame(test, e.getID());
+		assertFalse(e.isScraped());
+	}
+	
+	@Test
+	public void testCreate(){
+		try {
+			String s = FL2.readFile(new File("example"));
+			s = s.replace("{", "");
+			s = s.replace("}", "");
+			System.out.println(s);
+			
+			String[] tuples = s.split(";");
+			String[] values = new String[tuples.length];
+			for ( int i = 0 ; i < tuples.length ; i++ ){
+				values[i] = tuples[i].split(",")[1];
+				System.out.println(i + ". " +tuples[i].split(",")[0] + " " + values[i]  );
+			}
+			Entry e = new Entry("tt1504320", "en");
+			e = Entry.constructEntry(e, values, 14);
+			System.out.println(e);
+
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+}

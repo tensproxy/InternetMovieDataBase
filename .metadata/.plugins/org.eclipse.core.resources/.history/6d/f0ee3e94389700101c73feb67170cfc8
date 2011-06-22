@@ -1,0 +1,33 @@
+package test;
+
+import static org.junit.Assert.*;
+import layer3.EntryAbstract;
+
+import org.junit.Test;
+
+
+public class EntryLocal {
+	
+	@Test
+	public void testInit(){
+		EntryAbstract a1 = null;
+		assertNull(a1);
+//		a1 = new EntryAbstract();
+		
+		EntryLocal b1 = null;
+		assertNull(b1);
+		b1 = new EntryLocal();
+		assertNotNull(b1);
+		
+		EntryLocal b2 = null;
+		assertNull(b2);
+		b2 = new EntryLocal();
+		assertNotNull(b2);
+		
+		assertSame(b1,b2);
+		
+		
+		
+	}
+
+}

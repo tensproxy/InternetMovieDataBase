@@ -1,0 +1,28 @@
+package layer3;
+
+public class RepConTXT extends RepConAbstract {
+
+	public RepConTXT () {
+		super("txt");
+	}
+	@Override
+	public String convert(EntryList<Entry> inEntries) {
+		StringBuilder aSB = new StringBuilder();
+		for (Entry e : inEntries) {
+			aSB.append(this.toString(e));
+		}
+		return aSB.toString();
+	}
+	
+	public String toString(Entry e) {
+		StringBuilder aSB = new StringBuilder();
+		aSB.append(e.getID() + "." + e.getLanguage() + FL3.SEP);
+		aSB.append(e.getTitle() + " (" + e.getYear() + ") " + SEP);
+		aSB.append(e.getGenre() + SEP);
+		aSB.append(e.getPlot() + SEP);
+		aSB.append(e.lGetDirector() + ": " + e.getDirector() + SEP);
+		aSB.append(e.lgetWriter() + ": " + e.getWriter() + SEP);
+		aSB.append(e.lGetActors() + ": " + e.getActors() + SEP);
+		return aSB;
+	}
+}

@@ -1,0 +1,17 @@
+package test;
+
+import static org.junit.Assert.*;
+import layer3.Entry;
+
+import org.junit.Test;
+
+
+public class EntryAbstractTest {
+
+	@Test
+	public void testInit(){
+		Entry a1 = null;
+		assertNull(a1);
+//		a1 = new EntryAbstract();	
+	}
+}

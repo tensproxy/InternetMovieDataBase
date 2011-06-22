@@ -1,0 +1,11 @@
+package layer3;
+
+public class RepConTXT extends RepConAbstract {
+
+	@Override
+	public String convert(EntryList<Entry> inEntries, String string) {
+		for ( Entry e : inEntries) {
+			
+		}
+	}
+}

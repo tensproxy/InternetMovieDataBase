@@ -1,0 +1,13 @@
+package layer3;
+
+public interface RepConable {
+	
+	public abstract RepClonable(String inFileEnding);
+	
+	public abstract String convert(EntryList<Entry> inEntries);
+
+	public abstract String getFileEnding();
+	
+	public abstract String toString(Entry e);
+
+}

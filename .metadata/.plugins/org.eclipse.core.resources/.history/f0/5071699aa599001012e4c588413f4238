@@ -1,0 +1,33 @@
+package test;
+
+import static org.junit.Assert.*;
+import layer3.Entry;
+
+import org.junit.Test;
+
+
+public class EntryTest {
+	
+	@Test
+	public void testInit(){
+		String test = "test";
+		Entry e = new Entry(test, test);
+		assertEquals(Entry.DEFAULT, e.getActors());
+		assertEquals(test, e.getID());
+		assertSame(test, e.getID());
+		assertFalse(e.isScraped());
+	}
+	
+	@Test
+	public void testCreate(){
+		String s = ""; //"{"Title":"The Good Cop","Year":"2004","Rated":"11","Released":"16 Apr 2004","Genre":"Action, Comedy","Director":"Lasse Spang Olsen","Writer":"Kim Bodnia, Lasse Spang Olsen","Actors":"Kim Bodnia, René Dif, Nicolas Bro, Robert Hansen","Plot":"N/A","Poster":"http://ia.media-imdb.com/images/M/MV5BMTU5NDMyNTc0MV5BMl5BanBnXkFtZTcwNTQzNDQzMQ@@._V1._SX320.jpg","Runtime":"N/A","Rating":"5.6","Votes":"1044","ID":"tt0392049","Response":"True"}";
+		String[] tuples = s.split(";");
+		String[] values = new String[tuples.length];
+		for ( int i = 0 ; i < tuples.length ; i++ ){
+			values[i] = tuples[i].split(",")[1];
+		}
+		Entry e = new Entry("tt1504320", "en");
+		e = Entry.constructEntry(e, values, 14);
+		System.out.println(e);
+	}
+}

@@ -1,0 +1,26 @@
+package layer3;
+
+public class RepConManager {
+	
+	private static RepConManager SINGLETON = null;
+	
+	public enum rep {
+		txt, csv
+	}
+
+	public static RepConManager getInstance() {
+		if (RepConManager.GETSINGLETON() == null){
+			RepConManager.SETSINGLETON(new RepConManager());
+		}
+		return RepConManager.GETSINGLETON();
+	}
+
+	private static RepConManager SETSINGLETON(RepConManager inRepConManager) {
+		RepConManager.SINGLETON = inRepConManager;
+		return RepConManager.GETSINGLETON();
+	}
+
+	private static RepConManager GETSINGLETON() {
+		return RepConManager.SINGLETON;
+	}	
+}

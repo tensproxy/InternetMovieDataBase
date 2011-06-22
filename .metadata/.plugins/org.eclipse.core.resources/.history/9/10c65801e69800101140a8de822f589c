@@ -1,0 +1,23 @@
+package layer3;
+
+public class RepConCSV implements RepConable {
+
+	@Override
+	public String convert(EntryList<Entry> inEntries) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getFileEnding() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toString(Entry e) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

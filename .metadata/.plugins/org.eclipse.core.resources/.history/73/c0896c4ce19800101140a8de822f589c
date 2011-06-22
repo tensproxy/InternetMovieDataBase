@@ -1,0 +1,7 @@
+package layer3;
+
+public abstract class RepCon implements RepConable{
+
+	@Override
+	public String convert(EntryList<Entry> clone, String string);
+}

@@ -1,0 +1,7 @@
+package layer3;
+
+public implements RepConable {
+	
+	public String convert(EntryList<Entry> clone, String string);
+
+}

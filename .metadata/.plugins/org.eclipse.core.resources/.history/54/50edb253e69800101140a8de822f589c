@@ -1,0 +1,23 @@
+package layer3;
+
+public class RepConCSV extends RepConAbstract {
+
+	public RepConCSV() {
+		super("csv");
+	}
+
+	@Override
+	public String convert(EntryList<Entry> inEntries) {
+		StringBuilder aSB = new StringBuilder();
+		for ( Entry e : inEntries ) {
+			aSB.append(this.toString(e));
+		}
+	}
+
+	@Override
+	public StringBuilder toString(Entry e) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

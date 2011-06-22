@@ -1,0 +1,46 @@
+package layer3;
+
+import java.util.LinkedList;
+
+public class EntryList<E extends Entry> extends LinkedList <E>{
+
+	private static final long serialVersionUID = -6783965643378971239L;
+	private String name = null;
+	private int index = -1;
+	
+	public EntryList(String inName, int inIndex){
+		this.setName(inName);
+		this.setIndex(inIndex);
+	}
+	
+	private Entry(){
+		
+	}
+	
+	private int setIndex(int inIndex) {
+		this.index = inIndex;
+		return this.getIndex();
+	}
+
+	private int getIndex() {
+		return this.index;
+	}
+
+	private String setName(String inName) {
+		this.name = inName; 
+		return this.getName();
+	}
+
+	private String getName() {
+		return this.name;
+	}
+
+	@Override
+	public String toString(){
+		StringBuilder aSB = new StringBuilder();
+		for (Entry e : this) {
+			aSB.append(e.toString() + " ");
+		}
+		return aSB.toString();
+	}
+}

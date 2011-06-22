@@ -1,0 +1,21 @@
+package test;
+
+import layer3.Entry;
+
+import org.junit.Test;
+
+
+public class EntryTest {
+	
+	@Test
+	public void testInit(){
+		
+	}
+	
+	@Test
+	public void testToString(){
+		Entry e = Entry.("test", "test");
+		
+	}
+
+}

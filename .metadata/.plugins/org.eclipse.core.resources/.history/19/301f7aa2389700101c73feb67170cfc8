@@ -1,0 +1,13 @@
+package layer3;
+
+public class EntryInvalid extends EntryAbstract {	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7059973334211608014L;
+
+	public EntryInvalid(String inID, String inLang) throws EntryException {
+		super(inID, inLang);
+	}
+}

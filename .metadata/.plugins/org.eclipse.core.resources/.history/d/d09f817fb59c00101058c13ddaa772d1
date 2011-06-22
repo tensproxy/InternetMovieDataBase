@@ -1,0 +1,57 @@
+package layer3;
+
+public class RepConHTML extends RepConAbstract {
+
+	public RepConHTML() {
+		super(".html");
+	}
+
+	@Override
+	public String convert(EntryList<Entry> inEntries) {
+		StringBuilder aSB = new StringBuilder();
+		aSB.append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\");");
+		aSB.append("\"http://www.w3.org/TR/html4/strict.dtd\">");
+		aSB.append("<html>");
+		aSB.append("<head>");
+		aSB.append("<meta http-equiv\"Content-Type\" content=\"text/html; charset=UTF-8\">");
+		aSB.append("<title>Verfügbare Filme</title>");
+		aSB.append("<style type=\"text/css\">");
+		aSB.append("body, a {");
+		aSB.append("font: normal Helvetica, Arial, sans-serif;");
+		aSB.append("color: black; background-color: white;");
+		aSB.append("}");
+		aSB.append("table {");
+		aSB.append("border-style:solid;");
+		aSB.append("border-color:black;");
+		aSB.append("border-width:2px;)");
+		aSB.append("}");
+		aSB.append("</style>");
+		aSB.append("</head>");
+		aSB.append("<body>");
+		aSB.append("<table id=\"bigTable\">");
+		for (Entry e : inEntries) {
+			aSB.append(this.toString(e));
+		}
+		aSB.append("</table id=\"bigTable\">");
+		aSB.append("</body>");
+		aSB.append("</html>");
+		return aSB.toString();
+	}
+	
+	public StringBuilder toString(Entry e) {
+		StringBuilder aSB = new StringBuilder();
+		aSB.append("<tr>");
+		aSB.append("<td>");
+		aSB.append("<h1><a href=http://www.imdb.com/title/" + e.getID() + "/ >");
+		aSB.append(e.getTitle() + " (" + e.getYear() + ")</a></h1>");
+		aSB.append("<h2>" + e.getPlot() + "</h2><br>");
+		aSB.append("Filenname: " + e.getID() + "." + e.getLanguage() + "<br>");
+		aSB.append(Entry.getGenreL() + ": " + e.getGenre() + "<br>");
+		aSB.append(Entry.getDirectorL() + ": " + e.getDirector() + "<br>");
+		aSB.append(Entry.getWriterL() + ": " + e.getWriter() + "<br>");
+		aSB.append(Entry.getActorsL() + ": " + e.getActors() + "<br>");
+		aSB.append("</td>");
+		aSB.append("</tr>");
+		return aSB;
+	}
+}

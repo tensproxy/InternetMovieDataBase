@@ -1,0 +1,252 @@
+package layer3;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.net.URL;
+import java.util.LinkedList;
+import java.util.Locale;
+
+import layer2.FL2;
+
+public class FL3 {
+	
+	private static final String[] ISOLANGUAGES = Locale.getISOLanguages();
+	private static LinkedList<Locale> LOCALES = null;
+	//TODO Check read and write all folders
+	//TODO: file means reading from it, folder means scanning folder structure
+	private static final String INPUTSOURCE = "files.txt";//"/media/one/media.video/com.imdb.www/";
+	private static final String READFILESER = "movies.ser";
+	private static final String SEPARATOR = System.getProperty("line.separator");
+	private static final String WRITETESTENDING = "test";
+	private static final String WRITETESTURL = "http://www.xkcd.com";
+	private static final String FILELOCATION = "movies";
+	
+	public static String[] getMovieTuplesFromDirectory(File inFile) {
+		String[] foldernames = null;
+		if (inFile.exists()) {
+			File[] files = layer2.FL2.getFolder(inFile);
+			foldernames = new String[files.length];
+			for ( int i = 0 ; i < files.length ; i++ ) {
+				foldernames[i] = files[i].getName();
+			}			
+		} else {
+			try {
+				throw new FileNotFoundException(inFile.getAbsolutePath());
+			} catch (FileNotFoundException e) {
+				FL3.log(e);
+			}
+		}
+		return foldernames;
+	}
+	
+	private static String[] GETISOLANGUAGES() {
+		return FL3.ISOLANGUAGES;
+	}
+	
+	private static LinkedList<Locale> GETLOCALES() {
+		if (FL3.LOCALES == null) {
+			FL3.SETLOCALES(new LinkedList<Locale>());
+		}
+		return FL3.LOCALES;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static EntryList<Entry> getSerializedEntries() {
+		Object o = null;
+		try {
+			o = layer2.FL2.readSerializedObject(READFILESER);
+		} catch (Exception e) {
+			FL3.log(e);
+			o = new EntryList<Entry>();
+		} finally {
+			;
+		}
+		return (EntryList<Entry>) o;
+	}
+	
+	public static boolean isValidLocale(String inStringLocale) {
+		boolean isValid = false;
+		if (!FL3.GETLOCALES().contains(inStringLocale)) {
+			for (int i = 0; i < FL3.GETISOLANGUAGES().length; i++) {
+				if (FL3.GETISOLANGUAGES()[i].equals(inStringLocale)) {
+					isValid = FL3.GETLOCALES().add(new Locale(inStringLocale));
+					break;
+				}
+			}
+		}
+		return isValid;
+	}
+	
+	public static void log(Exception e) {
+		System.err.println(e.getClass() + ": " + e.getMessage());
+	}
+	
+	public static void inf(String inString, int importance) {
+		System.out.println(inString);
+	}
+	
+	public static String[] getMovieTuplesFromFile(File inFile){
+		String [] localProxyFiles = null;
+		try {
+			localProxyFiles = layer2.FL2.readFile(inFile).split(SEPARATOR);
+		} catch (Exception e) {
+			FL3.log(e);
+		}
+		return localProxyFiles;
+	}
+
+	public static String readScrapedString(URL inURL){
+		String returnAPIEntry = null;
+		try {
+			returnAPIEntry = layer2.FL2.readHTTPRequest(inURL);
+		} catch (Exception e) {
+			FL3.log(e);
+		}
+		return returnAPIEntry;
+	}
+
+	public static Object readSerializedObject (String inFileLocation) throws FileNotFoundException, IOException, ClassNotFoundException{
+		return layer2.FL2.readSerializedObject(inFileLocation);
+	}
+
+	private static LinkedList<Locale> SETLOCALES(LinkedList<Locale> inLocales) {
+		FL3.LOCALES = inLocales;
+		return FL3.GETLOCALES();
+	}
+
+	public static String toString(Object inObject) {
+		
+		StringBuilder aSB = new StringBuilder();
+        Class<?> c = inObject.getClass();
+        
+        aSB.append("Fields:" + SEPARATOR );        
+        Field[] fields = c.getDeclaredFields();
+        for ( Field f : fields ) {
+			aSB.append(f.getType() + " " + f.getName());
+        	try {
+        		aSB.append("=" + f.get(f));
+			} catch (IllegalArgumentException e) {
+				;
+			} catch (IllegalAccessException e) {
+				;
+			}
+			aSB.append("\n");
+        }
+
+        aSB.append("Methods:" + SEPARATOR);        
+        Method[] methods = c.getMethods();
+    	Object methobj = inObject;
+        Object[] arguments = new Object[0];
+        for (Method m : methods){
+        	if (m.getName().substring(0,3).equals("get")){
+        		aSB.append(m.getName() + " = " );
+				try {
+					aSB.append(m.invoke(methobj, arguments)); 
+				} catch (Exception e) {
+					aSB.append("err:" + e.getClass().getSimpleName());
+				}
+				aSB.append(SEPARATOR);
+        	}
+        }
+        return aSB.toString();
+	}
+
+	public static String toString(Object[] objects) {
+		StringBuilder aSB = new StringBuilder();
+		for ( int i = 0 ; i < objects.length ; i++ ) {
+			aSB.append(objects[i].toString() + SEPARATOR);					
+		}
+		return aSB.toString();
+	}
+
+	public static <T extends Entry> String toString (String inTitle, LinkedList<T> linkedList){
+		StringBuilder aSB = new StringBuilder();
+		aSB.append(inTitle + ":");
+		for (Entry e : linkedList){
+			aSB.append(" " + e.getName());
+		}
+		aSB.append(SEPARATOR);
+		return aSB.toString();
+	}
+	
+	public static boolean writeFile(EntryList<Entry> inEntries, RepConable inRepconable) {
+		Object data = inRepconable.convert(inEntries);
+		String fileLocation = FL3.getFileLocation() + inRepconable.getFileEnding();
+		boolean isWritten = false;
+		try {
+			if(data instanceof String){
+				layer2.FL2.writeFile(fileLocation, data.toString());				
+			} else {
+				layer2.FL2.writeFile(fileLocation, data);	
+			}
+			isWritten = true;
+		} catch (Exception e) {
+			FL3.log(e);
+		}
+		return isWritten;
+	}
+	
+	public static boolean writeFile(Object inData, RepConable inRepconable) {
+		return layer2.FL2.writeFile(fileLocation, data.toString());
+	}
+	
+	public static boolean deleteFile(String inFileLocation) {
+		boolean isDeleted = false;
+		try {
+			layer2.FL2.deleteFile(inFileLocation);
+			isDeleted = true;
+		} catch (Exception e) {
+			FL3.log(e);
+		}
+		return isDeleted;
+	}
+	
+	private static String getTestFile(){
+		return FILELOCATION + WRITETESTENDING;
+	}
+
+	public static boolean isWritable() {
+		boolean isWritten = true;
+		try {
+			FL2.writeFile("Test", FL3.getTestFile());
+		} catch (Exception e) {
+			FL3.log(e);
+		}
+		return isWritten; 
+	}
+
+	public static boolean isDeletable() {
+		return FL2.deleteFile(FL3.getTestFile());
+	}
+
+	public static boolean isOnline(){
+		boolean isOnline = false;
+		try {
+			String aString = FL2.readHTTPRequest(new URL(FL3.WRITETESTURL));
+			if (aString != null){
+				isOnline = true;
+			}
+		} catch (Exception e) {
+			FL3.log(e);
+		}
+		return isOnline;
+	}
+
+	private static String getFileLocation() {
+		return FL3.FILELOCATION;
+	}
+
+	public static String[] getMovieTuples() {
+		String [] sources = null;
+		File aFile = new File (INPUTSOURCE);
+		if (aFile.isDirectory()){
+			sources = FL3.getMovieTuplesFromDirectory(aFile);
+		} else {
+			sources = FL3.getMovieTuplesFromFile(aFile);
+		}
+		return sources;
+	}
+}

@@ -1,0 +1,29 @@
+package test;
+
+import layer3.DataBase;
+import layer3.Entry;
+
+import org.junit.Test;
+
+
+public class DataBaseTest {
+	
+	@Test
+	public void test(){
+		DataBase aDB = new DataBase();
+		
+		int a = aDB.newList();
+		
+		Entry e1 = new Entry("tt1000001", "de");
+		Entry e2 = new Entry("tt1000002", "de");
+		Entry e3 = new Entry("tt1000003", "de");
+		Entry e4 = new Entry("tt1000004", "de");
+		Entry e5 = new Entry("tt1000005", "de");
+		Entry e6 = new Entry("tt1000006", "de");
+		Entry e7 = new Entry("tt1000007", "de");
+		Entry e8 = new Entry("tt1000008", "de");
+		Entry e9 = new Entry("tt1000009", "de");
+		
+	}
+
+}

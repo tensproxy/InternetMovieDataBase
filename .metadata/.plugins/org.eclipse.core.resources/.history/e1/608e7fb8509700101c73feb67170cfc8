@@ -1,0 +1,12 @@
+package layer2;
+
+import java.util.LinkedList;
+import java.util.Locale;
+
+import layer3.Entry;
+import layer3.EntryException;
+
+public class LocaleManager {
+	
+
+}

@@ -1,0 +1,10 @@
+package layer3;
+
+public class RepConable {
+	
+	public String convert(EntryList<Entry> clone, String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

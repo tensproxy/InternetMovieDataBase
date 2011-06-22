@@ -1,0 +1,19 @@
+package test;
+
+import org.junit.Test;
+
+
+public class EntryTest {
+	
+	@Test
+	public void testInit(){
+		
+	}
+	
+	@Test
+	public void testToString(){
+		Entry e = new Entry("test", "test");
+		
+	}
+
+}

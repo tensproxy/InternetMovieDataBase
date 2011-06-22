@@ -1,0 +1,19 @@
+package test;
+
+import org.junit.Test;
+
+import layer3.IMDBThingy;
+
+public class TestReadMDB {
+	
+	@Test
+	public void testing(){
+		IMDBThingy aT = new IMDBThingy();
+		aT.calcLocalDB();
+		aT.calcSerialzedDB();
+		aT.shortenEntriesLocalDB();
+		aT.scrapeLocalDBToSerializedDB();
+		aT.saveSerializedDB();
+		aT.calcSerialzedDB();
+	}
+}

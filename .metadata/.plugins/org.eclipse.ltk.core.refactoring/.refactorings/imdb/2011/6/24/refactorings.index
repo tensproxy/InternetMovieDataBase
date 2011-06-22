@@ -1,0 +1,71 @@
+1308133129202	Rename type 'EntryLocal'
+1308137300405	Rename type 'EntryAbstract'
+1308137314563	Rename type 'EntryLocal'
+1308137582248	Delete element
+1308137598255	Rename type 'EntryValid'
+1308137928620	Move compilation unit
+1308137947320	Delete element
+1308137948747	Delete element
+1308137949928	Delete element
+1308140361228	Delete element
+1308140367357	Delete element
+1308143376979	Delete element
+1308150360931	Rename field 'entries'
+1308150366263	Rename field 'temp'
+1308150380495	Rename method 'setEntries'
+1308150395622	Rename method 'setTemp'
+1308150412958	Rename method 'getEntries'
+1308150420755	Rename method 'getTemp'
+1308150957153	Rename method 'setLocalDB'
+1308151103397	Rename method 'readFromSerialized'
+1308153796820	Rename method 'getOneItertor'
+1308154400893	Rename method 'serializeSerializedMovies'
+1308161946304	Delete element
+1308208491097	Rename local variable 'text'
+1308210677907	Rename method 'getFolderMovies'
+1308211047284	Rename method 'saveSerializedDB'
+1308211339138	Infer generic type arguments
+1308211913846	Rename local variable 'outEntry'
+1308213253795	Rename field 'PROXYFILES'
+1308213260429	Rename field 'MOVIEFOLDER'
+1308213339170	Rename method 'readProxyFiles'
+1308216216030	Rename method 'scrapeLocalDB'
+1308217047884	Rename local variable 'serializedObject'
+1308231766017	Rename field 'FILESER'
+1308233324362	Rename type 'FasadeLayer3'
+1308233333565	Rename type 'FasadeLayer2'
+1308233346573	Delete element
+1308233361219	Rename type 'TestReadMDB'
+1308235677153	Rename method 'writeTXT'
+1308236426052	Rename method 'writeToTXT'
+1308237957378	Rename type 'RepresentationConverterManager'
+1308240239711	Delete element
+1308240247543	Delete element
+1308240252340	Delete element
+1308251724450	Delete element
+1308315439273	Rename type 'IMDBAPIable_com_imdbapi'
+1308316282345	Rename type 'RepCon'
+1308317339096	Delete element
+1308327146111	Copy compilation unit
+1308331761491	Rename field 'rep_Repconable'
+1308389987813	Copy files
+1308390313943	Delete element
+1308390458232	Delete elements
+1308390490896	Delete elements
+1308391033338	Rename method 'getFoldernames'
+1308391126609	Rename local variable 'fn'
+1308392274629	Move files
+1308392281910	Copy files
+1308392284395	Delete element
+1308392285692	Delete element
+1308392293723	Rename resource 'moviestxt'
+1308392298646	Rename resource 'movies.CSV'
+1308392542954	Delete element
+1308392544339	Delete element
+1308392550266	Copy file
+1308392552438	Delete element
+1308394321763	Copy file
+1308394453099	Delete element
+1308394574988	Copy file
+1308400484752	Rename method 'setParameters'
+1308401134289	Rename method 'getParametersClone'

@@ -1,0 +1,30 @@
+package layer3;
+
+public class RepConCSV extends RepConAbstract {
+
+	public RepConCSV() {
+		super(".csv");
+	}
+
+	@Override
+	public Object convert(EntryList<Entry> inEntries) {
+		StringBuilder aSB = new StringBuilder();
+		for ( Entry e : inEntries ) {
+			aSB.append(this.toString(e));
+		}
+		return aSB.toString();
+	}
+
+	@Override
+	public StringBuilder toString(Entry e) {
+		StringBuilder aSB = new StringBuilder();
+		Collection<String> parameters = e.getValues();
+		String[] lParameters = Entry.getLParametersClone();
+		for ( int i = 0 ; i < parameters.length ; i++ ){
+			aSB.append(lParameters[i] + "," + parameters[i] + ";");
+			
+		}
+		aSB.append(System.getProperty("line.separator"));
+		return aSB;
+	}
+}

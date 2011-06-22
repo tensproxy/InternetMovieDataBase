@@ -1,0 +1,31 @@
+package test;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.junit.Test;
+
+import layer3.IMDBThingy;
+
+public class TestIMDBThingy {
+	
+	@Test
+	public void testing() throws FileNotFoundException, IOException, ClassNotFoundException{
+		IMDBThingy aT = new IMDBThingy();
+		FL3.inf("calcDB",0);
+		aT.calcDB();
+		
+		System.out.println("checkDB");
+		aT.checkDB();
+		
+		System.out.println("scrapeDB");
+		aT.scrapeDB();
+		
+		System.out.println("writeScrapedDB");
+		aT.writeScrapedDB();
+		
+		System.out.println("writeTXT");
+		aT.writeTXT();
+
+	}
+}

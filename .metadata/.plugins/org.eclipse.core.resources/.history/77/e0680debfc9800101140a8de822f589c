@@ -1,0 +1,11 @@
+package layer3;
+
+public interface RepConable {
+	
+	public Object convert(EntryList<Entry> inEntries);
+
+	public Object getFileEnding();
+	
+	public abstract Object toString(Entry e);
+
+}

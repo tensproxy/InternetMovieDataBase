@@ -1,0 +1,123 @@
+package test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import layer3.Entry;
+import layer3.EntryException;
+import layer3.EntryInvalid;
+import layer3.EntryValid;
+
+import org.junit.Test;
+
+
+public class EntryInvalidTest {
+	
+	@Test
+	public void testInit() throws EntryException{
+		Entry a1 = null;
+		assertNull(a1);
+//		a1 = new EntryAbstract();
+		
+		String s1 = "same";
+		String s2 = "de";
+		String s3 = "Deutsch";
+		
+		EntryValid b4 = null;
+		assertNull(b4);
+		boolean isThrown = false;
+		try {
+			b4 = new EntryValid(s1,s2+"_");			
+		} catch (EntryException e){
+			isThrown = true;
+		}
+		assertTrue(isThrown);
+		assertNull(b4);
+		
+		EntryInvalid c1 = null;
+		assertNull(c1);
+		c1 = new EntryInvalid(s1,s2);
+		assertNotNull(c1);		
+		assertSame(s1, c1.getID());
+		assertSame(s2, c1.getStringLocale());
+		assertSame(s3, c1.getLanguage());
+		assertEquals("same.de:\nnull", c1.toString());
+		assertNotSame("same.de:\nnull", c1.toString());
+		
+		EntryInvalid c2 = null;
+		assertNull(c2);
+		c2 = new EntryInvalid(s1,s2);
+		assertNotNull(c2);
+		assertSame(s1, c2.getID());
+		assertSame(s2, c2.getStringLocale());
+		assertSame(s3, c2.getLanguage());
+		assertEquals("same.de:\nnull", c2.toString());
+		assertNotSame("same.de:\nnull", c2.toString());
+		
+		assertSame(c1.getID(), c2.getID());
+		assertSame(c1.getStringLocale(), c2.getStringLocale());
+		assertSame(c1.getLanguage(), c2.getLanguage());
+		assertEquals(c1.toString(), c2.toString());
+		assertEquals(c1.hashCode(), c2.hashCode());
+		assertEquals(c1,c2);
+		
+		EntryInvalid c3 = null;
+		assertNull(c3);
+		c3 = new EntryInvalid(s1+"_",s2);
+		assertNotNull(c3);
+		assertNotSame(s1, c3.getID());
+		assertNotSame(s1+"_", c3.getID());
+		assertEquals(s1+"_", c3.getID());
+		assertSame(s2, c3.getStringLocale());
+		assertSame(s3, c3.getLanguage());
+		assertEquals("same_.de:\nnull", c3.toString());
+		assertNotSame("same.de:\nnull", c3.toString());
+		
+		assertNotSame(c1.getID(), c3.getID());
+		assertNotSame(c2.getID(), c3.getID());
+		assertSame(c1.getStringLocale(), c3.getStringLocale());
+		assertSame(c2.getStringLocale(), c3.getStringLocale());
+		assertSame(c1.getLanguage(), c3.getLanguage());
+		assertEquals(c1.getLanguage(), c3.getLanguage());
+		assertSame(c2.getLanguage(), c3.getLanguage());
+		assertEquals(c2.getLanguage(), c3.getLanguage());
+		assertFalse(c1.toString().equals(c3.toString()));
+		assertNotSame(c1.toString(), c3.toString());
+		assertFalse(c1.toString().equals(c3.toString()));
+		assertNotSame(c2.hashCode(), c3.hashCode());
+		assertFalse(c1.equals(c3));
+		assertFalse(c2.equals(c3));
+		
+		EntryInvalid c4 = null;
+		assertNull(c4);
+		c4 = new EntryInvalid(s1,s2+"_");			
+		assertNull(c4);
+		assertNotSame(s1, c4.getID());
+		assertNotSame(s1+"_", c4.getID());
+		assertEquals(s1+"_", c4.getID());
+		assertSame(s2, c4.getStringLocale());
+		assertSame(s3, c4.getLanguage());
+		assertEquals("same_.de:\nnull", c4.toString());
+		assertNotSame("same.de:\nnull", c4.toString());
+		
+		assertNotSame(c1.getID(), c4.getID());
+		assertNotSame(c2.getID(), c4.getID());
+		assertSame(c1.getStringLocale(), c4.getStringLocale());
+		assertSame(c2.getStringLocale(), c4.getStringLocale());
+		assertSame(c1.getLanguage(), c4.getLanguage());
+		assertEquals(c1.getLanguage(), c4.getLanguage());
+		assertSame(c2.getLanguage(), c4.getLanguage());
+		assertEquals(c2.getLanguage(), c4.getLanguage());
+		assertFalse(c1.toString().equals(c4.toString()));
+		assertNotSame(c1.toString(), c4.toString());
+		assertFalse(c1.toString().equals(c4.toString()));
+		assertNotSame(c2.hashCode(), c4.hashCode());
+		assertFalse(c1.equals(c4));
+		assertFalse(c2.equals(c4));
+
+	}
+}

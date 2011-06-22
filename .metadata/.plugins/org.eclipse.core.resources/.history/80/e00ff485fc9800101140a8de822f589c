@@ -1,0 +1,29 @@
+package test;
+
+import org.junit.Test;
+
+import layer3.FL3;
+import layer3.IMDBThingy;
+
+public class TestIMDBThingy {
+	
+	@Test
+	public void testing() {
+		IMDBThingy aT = IMDBThingy.getInstance();
+	
+		FL3.inf("calcDB", 0);
+		aT.calcDB();
+		
+		FL3.inf("checkDB", 0);
+		aT.checkDB();
+		
+		FL3.inf("scrapeDB", 0);
+		aT.scrapeDB();
+		
+		FL3.inf("writeScrapedDB", 0);
+		aT.writeScrapedDB();
+		
+		FL3.inf("writeAll", 0);
+		aT.writeAll();
+	}
+}

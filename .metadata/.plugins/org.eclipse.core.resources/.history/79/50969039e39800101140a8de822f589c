@@ -1,0 +1,8 @@
+package layer3;
+
+public interface RepConable {
+	
+	public String convert(EntryList<Entry> clone, String string);
+
+	public String getEnding();
+}

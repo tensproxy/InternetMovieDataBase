@@ -1,0 +1,24 @@
+package layer3;
+
+import java.util.LinkedList;
+
+public class EntryList<E extends Entry> extends LinkedList <E>{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6783965643378971239L;
+	
+	public EntryList(String inName){
+		
+	}
+	
+	@Override
+	public String toString(){
+		StringBuilder aSB = new StringBuilder();
+		for (Entry e : this) {
+			aSB.append(e.toString() + " ");
+		}
+		return aSB.toString();
+	}
+}

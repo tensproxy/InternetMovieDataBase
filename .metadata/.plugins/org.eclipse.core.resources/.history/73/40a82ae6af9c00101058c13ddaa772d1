@@ -1,0 +1,46 @@
+package layer3;
+
+public class RepConHTML extends RepConAbstract {
+
+	public RepConHTML() {
+		super(".html");
+	}
+
+	@Override
+	public String convert(EntryList<Entry> inEntries) {
+		StringBuilder aSB = new StringBuilder();
+		aSB.append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\");");
+		aSB.append("\"http://www.w3.org/TR/html4/strict.dtd\">");
+		aSB.append("<html>");
+		aSB.append("<head>");
+		aSB.append("<meta http-equiv\"content-type\" content=\"text/html; charset=ISO-8859-1\">");
+		aSB.append("<title>Verfügbare Filme</title>");
+		aSB.append("</style>");
+		aSB.append("</head>");
+		aSB.append("<body>");
+		for (Entry e : inEntries) {
+			aSB.append(this.toString(e));
+		}
+		aSB.append("</body>");
+		aSB.append("</html>");
+		return aSB.toString();
+	}
+	
+	public StringBuilder toString(Entry e) {
+		StringBuilder aSB = new StringBuilder();
+		aSB.append("<p>");
+		aSB.append("<h1>");
+		aSB.append(e.getTitle() + " (" + e.getYear() + ")");
+		aSB.append("</h1>");
+		aSB.append("<h2>");
+		aSB.append(Entry.getGenreL() + ": " + e.getGenre() + "<br>");
+		aSB.append(e.getPlot() + "<br>");
+		aSB.append("</h2>");
+		aSB.append("Filenname: " + e.getID() + "." + e.getLanguage() + "<br");
+		aSB.append(Entry.getDirectorL() + ": " + e.getDirector() + "<br>");
+		aSB.append(Entry.getWriterL() + ": " + e.getWriter() + "<br>");
+		aSB.append(Entry.getActorsL() + ": " + e.getActors() + "<br>");
+		aSB.append("</p>");
+		return aSB;
+	}
+}

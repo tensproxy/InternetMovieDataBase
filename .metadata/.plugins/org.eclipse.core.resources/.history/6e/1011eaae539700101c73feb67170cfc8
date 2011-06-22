@@ -1,0 +1,31 @@
+package test;
+
+import layer3.FasadeLayer3;
+
+import org.junit.Test;
+
+
+public class Tests {
+	
+	@Test
+	public void testStringMani(){
+		
+		String scrapedString = null;
+		try {
+			scrapedString = FasadeLayer3.getAPIEntry("http://www.imdbapi.com/?i=tt1285016");
+			scrapedString = scrapedString.replace("{", "");
+			scrapedString = scrapedString.replace("}", "");
+			String[] key_value = scrapedString.split("\",\"");
+			for ( int i = 0 ; i  < key_value.length ; i++ ) {
+				int lastDoubleQuote = key_value[i].lastIndexOf('"');
+				key_value[i] = key_value[i].substring(lastDoubleQuote+1);
+				
+			}
+			System.out.println(FasadeLayer3.toString(key_value));
+
+		} catch (Exception e) {
+			;
+		}
+	}
+
+}

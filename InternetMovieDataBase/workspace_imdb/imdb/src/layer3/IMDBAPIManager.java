@@ -1,8 +1,6 @@
 package layer3;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-
+import java.net.URL;
 
 public class IMDBAPIManager {
 	
@@ -25,24 +23,14 @@ public class IMDBAPIManager {
 	}
 
 	private static final IMDBAPIable[] IMDBAPIables = {
-		new IMDBAPIable_com_imdbapi()
-		//"http://imdbapi.poromenos.org/js/?t=",
+		new IMDBAP_com_imdbapi()
+		//new IMDBAPIable_com_poromenos(); //"http://imdbapi.poromenos.org/js/?t=",
 	};
 
-	public Entry scrape(Entry inEntry) {
-		
-		String APIString = null;
-		Entry scrapedEntry = null;
-		try {
-			APIString = FasadeLayer3.getAPIEntry(IMDBAPIables[0].createURL(inEntry.getID()));
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
-		
-		//TODO fetch Request Errors
-		scrapedEntry = IMDBAPIables[0].constructEntry(inEntry, APIString);
+	public Entry scrape(Entry inEntry) throws Exception {
+		URL scrapingURL = IMDBAPIables[0].createURL(inEntry.getID()); 
+		String APIString = FL3.readScrapedString(scrapingURL);
+		Entry scrapedEntry = IMDBAPIables[0].constructEntry(inEntry, APIString);
 		return scrapedEntry;
 	}
 }

@@ -1,0 +1,9 @@
+package layer3;
+
+import java.util.LinkedList;
+
+public class EntryList<E extends Entry> extends LinkedList <E>{
+	
+	
+
+}

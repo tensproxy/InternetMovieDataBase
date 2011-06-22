@@ -1,0 +1,46 @@
+package layer3;
+
+import java.util.HashMap;
+
+import layer3.Entry.parameter;
+
+public class IMDBAP_com_imdbapi extends IMDBAPIAbstract {
+
+	public IMDBAP_com_imdbapi() {
+		super("http://www.imdbapi.com/?i=", "");
+	}
+
+	@Override
+	public Entry constructEntry (Entry inEntry, String inScrapedString) {
+		inScrapedString = inScrapedString.replace("{", "");
+		inScrapedString = inScrapedString.replace("}", "");
+		String[] key_value = inScrapedString.split("\",\"");
+		
+		for ( int j = 0 ; j  < key_value.length ; j++ ) {
+			int lastDoubleQuote = key_value[j].lastIndexOf('"');
+			key_value[j] = key_value[j].substring(lastDoubleQuote+1);
+		}
+		
+		//BnXkFtZTcwODcwMzQ5Mw@@._V1._SX320.jpg","Runtime":"14 mins","Rating":"7.8","Votes":"755","ID":"tt1727587","Response":"True"
+
+		HashMap<parameter, String> parameter_Value = new HashMap<Entry.parameter, String>();
+		parameter_Value.put(parameter.Title, key_value[0]);
+		parameter_Value.put(parameter.Year, key_value[1]);
+		parameter_Value.put(parameter.Rated, key_value[0]);
+		parameter_Value.put(parameter.Released, key_value[0]);
+		parameter_Value.put(parameter.Genre, key_value[0]);
+		parameter_Value.put(parameter.Director, key_value[0]);
+		parameter_Value.put(parameter.Writer, key_value[0]);
+		parameter_Value.put(parameter.Actors, key_value[0]);
+		parameter_Value.put(parameter.Plot, key_value[0]);
+		parameter_Value.put(parameter.Poster, key_value[0]);
+		parameter_Value.put(parameter.Runtime, key_value[0]);
+		parameter_Value.put(parameter.Rating, key_value[0]);
+		
+		String temp = key_value[13];
+		key_value[13] = key_value[14];
+		key_value[14] = temp;
+				
+		return Entry.(inEntry, key_value, 13);
+	}
+}

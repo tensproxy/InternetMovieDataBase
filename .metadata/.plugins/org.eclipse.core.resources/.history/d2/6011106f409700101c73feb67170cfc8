@@ -1,0 +1,56 @@
+package layer3;
+
+import java.util.LinkedList;
+import java.util.Locale;
+
+public class LocaleManager {
+	
+	private static final String[] ISOLANGUAGES = Locale.getISOLanguages();
+	private static LinkedList<Locale> LOCALES = null;
+	
+	private static String[] GETISOLANGUAGES() {
+		return EntryLocal.ISOLANGUAGES;
+	}
+
+	private static LinkedList<Locale> GETLOCALES() {
+		if (EntryLocal.LOCALES == null) {
+			EntryLocal.SETLOCALES(new LinkedList<Locale>());
+		}
+		return EntryLocal.LOCALES;
+	}
+
+	private static LinkedList<Locale> SETLOCALES(LinkedList<Locale> inLocales) {
+		EntryLocal.LOCALES = inLocales;
+		return EntryLocal.GETLOCALES();
+	}
+
+	private boolean isLocaleValid(String inStringLocale) {
+		boolean isValid = false;
+		if (!EntryLocal.GETLOCALES().contains(inStringLocale)) {
+			for (int i = 0; i < EntryLocal.GETISOLANGUAGES().length; i++) {
+				if (EntryLocal.GETISOLANGUAGES()[i].equals(inStringLocale)) {
+					isValid = EntryLocal.GETLOCALES().add(new Locale(inStringLocale));
+				}
+			}
+		}
+		return isValid;
+	}
+	
+	private Locale validateLocale(String inStringLocale) throws EntryException {
+		Locale validatedLocale = null;
+		if (!this.isLocaleValid(inStringLocale)) {
+			throw new EntryException("Invalid Locale: " + inStringLocale + "!");
+		} else {
+			validatedLocale = new Locale(inStringLocale);
+		}
+		return validatedLocale;
+	}
+	
+	
+	private Locale setLocale(String inStringLocale) throws EntryException {
+		super.aLocale = this.validateLocale(inStringLocale);
+		return getLocale();
+	}
+
+
+}

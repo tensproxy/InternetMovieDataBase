@@ -1,0 +1,11 @@
+package layer3;
+
+import java.util.LinkedList;
+import java.util.Locale;
+
+public class LocaleManager {
+	
+	private static final String[] ISOLANGUAGES = Locale.getISOLanguages();
+	private static LinkedList<Locale> LOCALES = null;
+
+}

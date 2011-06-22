@@ -1,0 +1,27 @@
+package layer3;
+
+public class Thingy {
+	
+	private static String SEP = System.getProperty("line.separator");
+
+	public static String convert(EntryList<Entry> inList, String string) {
+		StringBuilder aSB = new StringBuilder();
+		for ( Entry e : inList ){
+			aSB.append(Thingy.toTXT(e));
+		}
+		return aSB.toString();
+	}
+	
+	public static String toTXT(Entry e){
+		StringBuilder aSB = new StringBuilder();
+		aSB.append(e.getID() + "." + e.getLanguage() + SEP);
+		aSB.append(e.getTitle() + " (" + e.getYear() + ") " + SEP);
+		aSB.append(e.getGenre() + SEP);
+		aSB.append(e.getPlot() + SEP);
+		aSB.append(e.lGetDirector() + ": " + e.getDirector() + SEP);
+		aSB.append(e.lgetWriter() + ": " + e.getWriter() + SEP);
+		aSB.append(e.lGetActors() + ": " + e.getActors() + SEP);
+		return aSB.toString();
+	}
+
+}

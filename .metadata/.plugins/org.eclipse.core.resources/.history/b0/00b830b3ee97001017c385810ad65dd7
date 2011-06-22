@@ -1,0 +1,7 @@
+package layer3;
+
+public class EntryList extends LinkedList{
+	
+	
+
+}

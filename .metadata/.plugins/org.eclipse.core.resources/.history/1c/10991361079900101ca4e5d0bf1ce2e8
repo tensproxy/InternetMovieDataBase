@@ -1,0 +1,51 @@
+package layer3;
+
+import java.util.HashMap;
+
+public class RepConManager {
+	
+	public enum rep {
+		ser, txt, csv
+	}
+	
+	private static HashMap<rep, RepConable> rep_Repconable = null;
+
+	private static RepConManager SINGLETON = null;
+
+	public static RepConManager getInstance() {
+		if (RepConManager.GETSINGLETON() == null){
+			RepConManager.SETSINGLETON(new RepConManager());
+		}
+		return RepConManager.GETSINGLETON();
+	}
+	
+	private static RepConManager GETSINGLETON() {
+		return RepConManager.SINGLETON;
+	}
+	
+	private static RepConManager SETSINGLETON(RepConManager inRepConManager) {
+		RepConManager.SINGLETON = inRepConManager;
+		return RepConManager.GETSINGLETON();
+	}
+
+	private RepConManager(){
+		HashMap<rep, RepConable> temp = new HashMap<rep, RepConable>();
+		temp.put(RepConManager.rep.ser, new RepConSER());
+		temp.put(RepConManager.rep.txt, new RepConTXT());
+		temp.put(RepConManager.rep.csv, new RepConCSV());
+		this.setRep_RepConable(temp);
+	}
+
+	private HashMap<rep, RepConable> setRep_RepConable(HashMap<rep, RepConable> inRep_Conable) {
+		this.rep_Repconable = inRep_Conable;
+		return this.getRep_Conable();		
+	}
+
+	private HashMap<rep, RepConable> getRep_Conable() {
+		return this.rep_Repconable;
+	}
+
+	public RepConable getRepCon(rep inRep) {
+		this.getRep_Con
+	}
+}

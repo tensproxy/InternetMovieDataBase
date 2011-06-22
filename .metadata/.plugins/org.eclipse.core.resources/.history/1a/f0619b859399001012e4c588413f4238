@@ -1,0 +1,163 @@
+package layer3;
+
+import java.util.Iterator;
+
+public class IMDBThingy {
+	
+	private static IMDBThingy SINGLETON = null;
+
+	public static IMDBThingy getInstance(){
+		if ( IMDBThingy.GETSINGLETON() == null ) {
+			IMDBThingy.SETSINGLETON(new IMDBThingy());				
+		}
+		return IMDBThingy.GETSINGLETON();
+	}
+	
+	private static IMDBThingy GETSINGLETON() {
+		return IMDBThingy.SINGLETON;
+	}
+
+	public static boolean isFunctional() {
+		boolean allGood = false;
+		try {
+			FL3.inf("Checking if writable", 0);
+			if ( ! IMDBThingy.isWritable() ) {
+				throw new Exception ("Not removable!");
+			}
+			FL3.inf("Checking if removable", 0);
+			if ( ! IMDBThingy.isRemovable() ) {
+				throw new Exception ("Not removable!");
+			}
+			FL3.inf("Checking if online", 0);
+			if ( ! IMDBThingy.isOnline() ) {
+				throw new Exception ("Not online!");
+			}		
+			FL3.inf("All checks passed successfully", 0);
+			allGood = true;
+		} catch (Exception e) {
+			FL3.log(e);
+		}
+		return allGood;
+	}
+	
+	private static boolean isOnline() {
+		if (FL3.isOnline()) return true; 
+		else return false; 
+	}
+	
+	private static IMDBThingy SETSINGLETON(IMDBThingy inIMDBThingy) {
+		IMDBThingy.SINGLETON = inIMDBThingy;
+		return IMDBThingy.GETSINGLETON();
+	}
+	private DataBase aDB = null;
+	private IMDBAPIManager aIMDBAPIManger = null;
+	
+	private RepConManager aRepConManager = null;
+	private int invDB = 0;
+	private int serDB = 0;
+	private int valDB = 0;
+	
+	private IMDBThingy(){
+		this.setDB(new DataBase());
+		this.setIMDBAPIManger(IMDBAPIManager.getInstance());
+		this.setRepConManager(RepConManager.getInstance());
+	}
+
+	public void calcDB() {
+		// add entries from serialized file
+		serDB = this.getDB().addList(FL3.getSerializedEntries());
+		FL3.inf("Amount of already serialized movies: " + this.getDB().size(serDB), 1);
+		
+		// get entries from locale proxy file or local movie folder 
+		String[] movieTuples = FL3.getMovieTuples();
+		// sort valid and invalid ones. 
+		String[] aID_aLanguage = null;
+		valDB = this.getDB().newList();
+		invDB = this.getDB().newList();
+		for ( String m : movieTuples ) {
+			aID_aLanguage = m.substring(m.lastIndexOf(System.getProperty("file.separator"))+1).split("\\.");
+			Entry aEntry = new Entry(aID_aLanguage[0], aID_aLanguage[1]);
+			if (aEntry.getLanguageV().equals(Boolean.toString(Boolean.TRUE))){
+				this.getDB().addEntry(valDB, aEntry);
+			} else {
+				this.getDB().addEntry(invDB, aEntry);
+			}
+		}
+		FL3.inf("Amount of valid IMDB-IDs: " + this.getDB().size(valDB), 1);
+		FL3.inf("Amount of invalid IMDB-IDs: " + this.getDB().size(invDB), 1);
+	}
+
+	public void checkDB() {
+		// remove from list with serialized movies, movies that are not local anymore
+		this.getDB().trimAFromDiffToBReturnTrimmedEntries(serDB, valDB);
+		// remove from list with local movies, movies that are already serialized
+		this.getDB().trimAFromSameToBReturnTrimmedEntries(valDB, serDB);
+		FL3.inf("this.getDB().size(serDB): " + this.getDB().size(serDB), 1);
+		FL3.inf("this.getDB().size(valDB): " + this.getDB().size(valDB), 1);
+		FL3.inf("this.getDB().size(invDB): " + this.getDB().size(invDB), 1);
+	}
+
+	private DataBase getDB() {
+		return this.aDB;
+	}
+	
+	private IMDBAPIManager getIMDBAPIManager() {
+		return this.aIMDBAPIManger;
+	}
+	
+	private RepConManager getRepConManager() {
+		return this.aRepConManager;
+	}
+
+	public void scrapeDB() {
+		if (IMDBThingy.isOnline()) {
+			FL3.inf("Scrapping...", 1);
+			Iterator<Entry> iterator = this.getDB().iterator(valDB);
+			int max = this.getDB().size(valDB);
+			int i = 0;
+			while (iterator.hasNext()){
+				FL3.inf(i + "/" + max, 1);
+				Entry aEntry = iterator.next();
+				Entry aScrapedEntry = this.getIMDBAPIManager().scrape(aEntry);
+				this.getDB().addEntry(serDB, aScrapedEntry);
+				if (++i > 9) {break;}
+			}
+			FL3.inf("Scrapped " + i + " IMDB-IDs", 1);		
+			this.aDB.trimAFromSameToBReturnTrimmedEntries(valDB, serDB);			
+		} else {
+			FL3.inf("Not online. Scrapping not possible", 2);
+		}
+	}
+
+	private DataBase setDB(DataBase inDataBase) {
+		this.aDB = inDataBase;
+		return this.getDB();
+	}
+
+	private IMDBAPIManager setIMDBAPIManger(IMDBAPIManager inIMDBAPIManager) {
+		this.aIMDBAPIManger = inIMDBAPIManager;
+		return this.getIMDBAPIManager();
+	}
+	
+	private RepConManager setRepConManager(RepConManager inRepConManager){
+		this.aRepConManager = inRepConManager;
+		return this.getRepConManager();
+	}
+	
+	@Override
+	public String toString(){
+		return this.getDB().toString();
+	} 
+	
+	public void writeSER() {
+		FL3.writeFile(this.aDB.clone(serDB), this.aRepConManager.getRepCon(RepConManager.rep.ser));
+	}
+
+	public void writeTXT() {
+		FL3.writeFile(this.aDB.clone(serDB), this.aRepConManager.getRepCon(RepConManager.rep.txt));
+	}
+
+	public void writeCSV() {
+		FL3.writeFile(this.aDB.clone(serDB), this.aRepConManager.getRepCon(RepConManager.rep.csv));
+	}
+}

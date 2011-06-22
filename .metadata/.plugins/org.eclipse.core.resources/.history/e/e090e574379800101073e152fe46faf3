@@ -1,0 +1,21 @@
+package layer3;
+
+public class Thingy {
+
+	public static String convert(EntryList<Entry> inList, String string) {
+		StringBuilder aSB = new StringBuilder();
+		for ( Entry e : inList ){
+			
+		}
+		return aSB.toString();
+	}
+	
+	public String toTXT(Entry e){
+		StringBuilder aSB = new StringBuilder();
+		aSB.append(e.getID() + "." + e.getLanguage());
+		aSB.append(e.getID() + "." + e.getLanguage());
+		aSB.append(e)
+		return aSB.toString();
+	}
+
+}

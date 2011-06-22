@@ -1,0 +1,20 @@
+package layer3;
+
+public class EntryException extends Exception {
+
+	private static final long serialVersionUID = 8414993825826101534L;
+	private String ID = "none";
+
+	public EntryException(String string) {
+		super(string);
+	}
+
+	public String setID(String inID) {
+		this.ID  = inID;
+		return this.getID();
+	}
+
+	private String getID() {
+		return this.ID;
+	}
+}

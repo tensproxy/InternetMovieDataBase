@@ -1,0 +1,20 @@
+package test;
+
+import static org.junit.Assert.*;
+import layer3.Entry;
+
+import org.junit.Test;
+
+
+public class EntryTest {
+	
+	@Test
+	public void testInit(){
+		String test = "test";
+		Entry e = new Entry(test, test);
+		assertEquals(Entry.DEFAULT, e.getActors());
+		assertEquals(test, e.getID());
+		assertSame(test, e.getID());
+		assertFalse(e.isScraped());
+	}
+}

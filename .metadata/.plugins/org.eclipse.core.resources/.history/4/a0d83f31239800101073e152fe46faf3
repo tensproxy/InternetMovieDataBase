@@ -1,0 +1,11 @@
+package layer3;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public interface IMDBAPIable {
+	
+	public URL createURL(String inID) throws MalformedURLException;
+
+	public Entry constructEntry(Entry inAbstractEntry, String scrapedString);
+}

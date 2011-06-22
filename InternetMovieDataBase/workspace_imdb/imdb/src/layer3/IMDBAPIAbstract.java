@@ -1,5 +1,8 @@
 package layer3;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public abstract class IMDBAPIAbstract implements IMDBAPIable {
 	
 	private String aBaseURL = null;
@@ -29,7 +32,13 @@ public abstract class IMDBAPIAbstract implements IMDBAPIable {
 	}
 
 	@Override
-	public String createURL(String inID) {
-		return this.getBaseURL() + inID + this.getEndURL();
+	public URL createURL(String inID) {
+		URL createURL = null;
+		try {
+			createURL =  new URL(this.getBaseURL() + inID + this.getEndURL());
+		} catch (MalformedURLException e) {
+			FL3.log(e);
+		}
+		return createURL;
 	}
 }

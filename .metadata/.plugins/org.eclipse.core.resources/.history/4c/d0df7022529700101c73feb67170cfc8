@@ -1,0 +1,62 @@
+package layer3;
+
+public class IMDBAPIable_com_imdbapi extends IMDBAPIAbstract implements IMDBAPIable {
+
+	public IMDBAPIable_com_imdbapi() {
+		super("http://www.imdbapi.com/?i=", "");
+	}
+
+	@Override
+	public Entry builtUpLocalEntry (Entry inEntry, String scrapedString) {
+		
+		System.out.println(scrapedString);
+		
+		
+		
+		Entry.setTitle(s[0].substring(s[0].indexOf(":") + 1, s[0].length()));
+		
+//		aLocalEntry.setYear(s[1].split(":")[1]);	
+//		aLocalEntry.setRated(s[2].split(":")[1]);
+//		aLocalEntry.setReleased(s[3].split(":")[1]);
+//		aLocalEntry.setGenre(s[4].split(":")[1]);
+//		aLocalEntry.setDirector(s[5].split(":")[1]);
+//		aLocalEntry.setWriter(s[6].split(":")[1]);
+//		aLocalEntry.setActors(s[7].split(":")[1]);
+//		aLocalEntry.setPlot(s[8].split(":")[1]);
+//		aLocalEntry.setPoster(s[9].substring(s[9].indexOf(":") + 1, s[9].length()));//s[9].split(":")[1]);
+//		aLocalEntry.setRuntime(s[10].split(":")[1]);
+//		aLocalEntry.setRating(s[11].split(":")[1]);
+//		aLocalEntry.setVotes(s[12].split(":")[1]);
+////		aLocalEntry.setID(s[13]);
+//		aLocalEntry.setResponse(s[14].split(":")[1].replace("}", ""));
+
+		
+//		scrapedString = scrapedString.replace("{", "");
+//		scrapedString = scrapedString.replace("}", "");
+//		scrapedString = scrapedString.replaceAll("\",\"", "²³");
+//		scrapedString = scrapedString.replaceAll("\"", "");
+//		String s[] = scrapedString.split("²³");
+		
+		Entry aLocalEntry = new Entry( inEntry.getID(), inEntry.getLanguage());
+
+		// TODO
+		aLocalEntry.setString(scrapedString);
+//		aLocalEntry.setTitle(s[0].substring(s[0].indexOf(":") + 1, s[0].length()));
+//		aLocalEntry.setYear(s[1].split(":")[1]);	
+//		aLocalEntry.setRated(s[2].split(":")[1]);
+//		aLocalEntry.setReleased(s[3].split(":")[1]);
+//		aLocalEntry.setGenre(s[4].split(":")[1]);
+//		aLocalEntry.setDirector(s[5].split(":")[1]);
+//		aLocalEntry.setWriter(s[6].split(":")[1]);
+//		aLocalEntry.setActors(s[7].split(":")[1]);
+//		aLocalEntry.setPlot(s[8].split(":")[1]);
+//		aLocalEntry.setPoster(s[9].substring(s[9].indexOf(":") + 1, s[9].length()));//s[9].split(":")[1]);
+//		aLocalEntry.setRuntime(s[10].split(":")[1]);
+//		aLocalEntry.setRating(s[11].split(":")[1]);
+//		aLocalEntry.setVotes(s[12].split(":")[1]);
+////		aLocalEntry.setID(s[13]);
+//		aLocalEntry.setResponse(s[14].split(":")[1].replace("}", ""));
+		
+		return aLocalEntry;
+	}
+}

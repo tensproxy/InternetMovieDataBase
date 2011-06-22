@@ -1,0 +1,40 @@
+package test;
+
+import static org.junit.Assert.*;
+import layer3.EntryAbstract;
+import layer3.EntryException;
+import layer3.EntryLocal;
+
+import org.junit.Test;
+
+
+public class EntryLocalTest {
+	
+	@Test
+	public void testInit() throws EntryException{
+		EntryAbstract a1 = null;
+		assertNull(a1);
+//		a1 = new EntryAbstract();
+		
+		String s1 = "same";
+		String s2 = "de";
+		String s3 = "Deutsch";
+		EntryLocal b1 = null;
+		assertNull(b1);
+		b1 = new EntryLocal(s1, s2);
+		assertNotNull(b1);		
+		assertSame(s1, b1.getID());
+		assertSame(s2, b1.getStringLocale());
+		assertSame(s3, b1.getLanguage());
+		assertSame("same.de:/nnull" , b1.toString())
+		
+		EntryLocal b2 = null;
+		assertNull(b2);
+		b2 = new EntryLocal(s1,s2);
+		assertNotNull(b2);
+		
+		assertNotSame(b1,b2);
+		
+	}
+
+}

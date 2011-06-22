@@ -1,0 +1,11 @@
+package layer3;
+
+public class RepCon implements RepConable{
+
+	@Override
+	public String convert(EntryList<Entry> clone, String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

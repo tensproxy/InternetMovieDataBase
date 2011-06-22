@@ -1,0 +1,18 @@
+package layer3;
+
+public class RepConSER extends RepConAbstract {
+
+	public RepConSER() {
+		super("csv");
+	}
+
+	@Override
+	public Object convert(EntryList<Entry> inEntries) {
+		
+	}
+
+	@Override
+	public StringBuilder toString(Entry e) {
+		return null;
+	}
+}

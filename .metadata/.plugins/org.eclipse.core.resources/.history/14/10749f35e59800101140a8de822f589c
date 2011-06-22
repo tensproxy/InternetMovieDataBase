@@ -1,0 +1,27 @@
+package layer3;
+
+public abstract class RepConAbstract implements RepConable{
+	
+	private static String aFileEnding = "txt";
+
+	@Override
+	public abstract String convert(EntryList<Entry> inEntries);
+	
+	
+	public RepConAbstract(String inFileEnding) {
+		this.setFileEnding(inFileEnding);
+	}
+
+	private String setFileEnding(String inFileEnding) {
+		this.aFileEnding = inFileEnding;
+		return this.getFileEnding();
+	}
+
+	@Override	
+	public String getFileEnding(){
+		return this.aFileEnding;
+	}
+	
+	@Override	
+	public abstract String toString(Entry e);
+}

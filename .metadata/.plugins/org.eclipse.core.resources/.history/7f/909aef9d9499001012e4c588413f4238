@@ -1,0 +1,32 @@
+package layer3;
+
+public class RepConTXT extends RepConAbstract {
+
+	public RepConTXT() {
+		super(".txt");
+	}
+
+	@Override
+	public String convert(EntryList<Entry> inEntries) {
+		StringBuilder aSB = new StringBuilder();
+		for (Entry e : inEntries) {
+			System.out.println(e.toString());
+			aSB.append(this.toString(e));
+		}
+		return aSB.toString();
+	}
+	
+	public StringBuilder toString(Entry e) {
+		StringBuilder aSB = new StringBuilder();
+		aSB.append(e.getID() + "." + e.getLanguage() + System.getProperty("line.separator"));
+		aSB.append(e.getTitle() + " (" + e.getYear() + ") " + System.getProperty("line.separator"));
+		aSB.append(e.getGenre() + System.getProperty("line.separator"));
+		aSB.append(e.getPlot() + System.getProperty("line.separator"));
+		aSB.append(Entry.lGetDirector() + ": " + e.getDirector() + System.getProperty("line.separator"));
+		aSB.append(Entry.lgetWriter() + ": " + e.getWriter() + System.getProperty("line.separator"));
+		aSB.append(Entry.lGetActors() + ": " + e.getActors() + System.getProperty("line.separator"));
+		aSB.append(System.getProperty("line.separator"));
+		aSB.append(System.getProperty("line.separator"));
+		return aSB;
+	}
+}

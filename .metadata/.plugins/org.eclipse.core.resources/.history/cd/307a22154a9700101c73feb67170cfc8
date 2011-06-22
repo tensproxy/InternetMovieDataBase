@@ -1,0 +1,26 @@
+package test;
+
+import static org.junit.Assert.*;
+import layer3.Entry;
+
+import org.junit.Test;
+
+
+public class EntryTest {
+	
+	@Test
+	public void testInit(){
+		
+	}
+	
+	@Test
+	public void testToString(){
+		String test = "test";
+		Entry e = new Entry(test, test);
+		assertEquals(e.getActors(), null);
+		assertEquals(e.getID(), test);
+		assertSame(e.getID(), test);
+		
+	}
+
+}

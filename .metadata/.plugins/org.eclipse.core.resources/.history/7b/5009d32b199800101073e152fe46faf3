@@ -1,0 +1,10 @@
+package layer3;
+
+import java.net.URL;
+
+public interface IMDBAPIable {
+	
+	public String createURL(URL inID);
+
+	public Entry constructEntry(Entry inAbstractEntry, String scrapedString);
+}

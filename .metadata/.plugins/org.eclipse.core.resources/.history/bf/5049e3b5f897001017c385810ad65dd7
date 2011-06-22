@@ -1,0 +1,16 @@
+package test;
+
+import layer3.DataBase;
+
+import org.junit.Test;
+
+
+public class DataBaseTest {
+	
+	@Test
+	public void test(){
+		DataBase aDB = new DataBase();
+		int a = aDB.newList();
+	}
+
+}

@@ -1,0 +1,28 @@
+package layer3;
+
+import java.util.HashMap;
+
+public class IMDBAP_com_imdbapi extends IMDBAPIAbstract {
+
+	public IMDBAP_com_imdbapi() {
+		super("http://www.imdbapi.com/?i=", "");
+	}
+
+	@Override
+	public Entry constructEntry (Entry inEntry, String inScrapedString) {
+		inScrapedString = inScrapedString.replace("{", "");
+		inScrapedString = inScrapedString.replace("}", "");
+		String[] key_value = inScrapedString.split("\",\"");
+		
+		HashMap<Entry.parameter, String> temp = null;
+		for ( int j = 0 ; j  < key_value.length ; j++ ) {
+			int lastDoubleQuote = key_value[j].lastIndexOf('"');
+			key_value[j] = key_value[j].substring(lastDoubleQuote+1);
+		}
+		String temp = key_value[13];
+		key_value[13] = key_value[14];
+		key_value[14] = temp;
+				
+		return Entry.(inEntry, key_value, 13);
+	}
+}

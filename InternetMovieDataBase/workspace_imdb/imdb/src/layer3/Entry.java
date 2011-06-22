@@ -1,57 +1,144 @@
 package layer3;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Locale;
 
-/**
-
- * ID 		0 
- * ---
- * Language 1 
- * LanguageV2
- * ---
- * Title 	3  
- * Year 	4 
- * Rated 	5  
- * Released 6 
- * Genre 	7  
- * Director 8 
- * Writer 	9  
- * Actors 	10 
- * Plot 	11 
- * Poster 	12
- * Runtime 	13  
- * Rating 	14 
- * Votes 	15 
- * ID		16
- * Response 17
- * 
- * @author hkh
- * 
- */
 public class Entry implements Serializable{
 	
-	public static final int LENGTH = 18;
-	private static final int OFFSET = 3;
+	public static enum parameter {
+		Actors,
+		Director,
+		Genre,
+		ID,
+		Language,
+		Plot,
+		Poster,
+		Rated,
+		Rating,
+		Released,
+		Response,
+		Runtime,
+		Title,
+		Votes,
+		Writer,
+		Year
+	}
+	private static HashMap<Entry.parameter, String> parameter_Label = null;
+	private static LinkedList<String> knownValidLanguages = null;
 	private static final long serialVersionUID = -7045975487325119763L;
+	private static String[] ISOLanguages = null;
+	
+	public static String getActorsL() {
+		return Entry.getParameter_Label().get(Entry.parameter.Actors);	
+	}
 		
-	private String[] parameters = new String[LENGTH];
+	public static String getDirectorL() {
+		return Entry.getParameter_Label().get(Entry.parameter.Director);
+	}
+	
+	public static String getGenreL() {
+		return Entry.getParameter_Label().get(Entry.parameter.Genre);
+	}
+	
+	public static final String getIDL() {
+		return Entry.getParameter_Label().get(Entry.parameter.ID);
+	}
+	
+	public static String getLanguageL() {		
+		return Entry.getParameter_Label().get(Entry.parameter.Language);
+	}
+	
+	public static String getLReleased() {
+		return Entry.getParameter_Label().get(Entry.parameter.Released);
+	}
+	
+	public static HashMap<parameter, String> getParameter_Label() {
+		if (Entry.parameter_Label == null ) {
+			HashMap<parameter, String> initParameter_Label = new HashMap<parameter, String>();
+			initParameter_Label.put(Entry.parameter.Actors, "Actors");
+			initParameter_Label.put(Entry.parameter.Director, "Director");
+			initParameter_Label.put(Entry.parameter.Genre, "Genre");
+			initParameter_Label.put(Entry.parameter.ID, "ID");
+			initParameter_Label.put(Entry.parameter.Language, "Language");
+			initParameter_Label.put(Entry.parameter.Plot, "Plot");
+			initParameter_Label.put(Entry.parameter.Poster, "Poster");
+			initParameter_Label.put(Entry.parameter.Rated, "Rated");
+			initParameter_Label.put(Entry.parameter.Rating, "Rating");
+			initParameter_Label.put(Entry.parameter.Released, "Released");
+			initParameter_Label.put(Entry.parameter.Response, "Response");
+			initParameter_Label.put(Entry.parameter.Runtime, "Runtime");
+			initParameter_Label.put(Entry.parameter.Released, "Released");
+			initParameter_Label.put(Entry.parameter.Runtime, "Runtime");	
+			initParameter_Label.put(Entry.parameter.Writer, "Writer");	
+			Entry.setParameter_Label(initParameter_Label);
+		}
+		return Entry.parameter_Label;
+	}
+	
+	public static String getPlotL() {
+		return Entry.getParameter_Label().get(Entry.parameter.Plot);
+	}
+	
+	public static String getPosterL() {
+		return Entry.getParameter_Label().get(Entry.parameter.Poster);
+	}
+	
+	public static String getRatedL() {
+		return Entry.getParameter_Label().get(Entry.parameter.Rated);
+
+	}
+	
+	public static String getRatingL() {
+		return Entry.getParameter_Label().get(Entry.parameter.Rating);
+	}
+	
+	public static String getResponseL() {
+		return Entry.getParameter_Label().get(Entry.parameter.Response);
+	}
+	
+	public static String getRuntimeL() {
+		return Entry.getParameter_Label().get(Entry.parameter.Runtime);
+	}
+	
+	public static String getTitleL() {
+		return Entry.getParameter_Label().get(Entry.parameter.Title);
+	}
+	
+	public static String getVotesL() {		
+		return Entry.getParameter_Label().get(Entry.parameter.Votes);
+	}
+	
+	public static String getWriterL() {
+		return Entry.getParameter_Label().get(Entry.parameter.Writer);
+	}
+	
+	public static String getYearL() {		
+		return Entry.getParameter_Label().get(Entry.parameter.Year);
+	}	
+	
+	private static HashMap<parameter, String> setParameter_Label(HashMap<parameter, String> inParameter_Label) {
+		Entry.parameter_Label = inParameter_Label;
+		return Entry.getParameter_Label();
+	}
+	
+	private HashMap<Entry.parameter, String> parameter_Value = null;
 	
 	public Entry(String inID, String inLanguage) {
-		this.setID(inID);
-		this.setLanguage(inLanguage);
+		HashMap<Entry.parameter, String> temp = new HashMap<Entry.parameter, String>();
+		temp.put(Entry.parameter.ID, inID);
+		temp.put(Entry.parameter.Language, inLanguage);
+		this.setParameter_Value(temp);
 	}
 	
-	public static Entry constructEntry(Entry inEntry, String[] inParameters, int inIID) {
-		if ( ! inEntry.getID().equals(inParameters[inIID]) ) {
-			for ( int i = Entry.OFFSET; i < Entry.LENGTH ; i++ ) {
-				inEntry.parameters[i] = inParameters[ i - Entry.OFFSET];
-			}				
-		} else { // TODO
-			System.err.println("BÄM!");
-		}
-		return inEntry;
+	public Entry fill(HashMap<parameter, String> inParameter_Value) {
+		inParameter_Value.put(Entry.parameter.Language, this.getParameter_Value().get(Entry.parameter.Language));
+		this.setParameter_Value(inParameter_Value);
+		return this;
 	}
-	
+
 	@Override
 	public final boolean equals(Object inObject) {
 		boolean isEqual = false;
@@ -65,71 +152,79 @@ public class Entry implements Serializable{
 	}
 	
 	public String getActors() {
-		return this.parameters[10];
+		return this.getParameter_Value().get(Entry.parameter.Actors);
 	}
 	
 	public String getDirector() {
-		return this.parameters[8];
+		return this.getParameter_Value().get(Entry.parameter.Director);
 	}
 	
 	public String getGenre() {
-		return this.parameters[7];
+		return this.getParameter_Value().get(Entry.parameter.Genre);
 	}
-	
+
 	public final String getID() {
-		return this.parameters[0];
+		return this.getParameter_Value().get(Entry.parameter.ID);
 	}
-	
+
 	public String getLanguage() {
-		return this.parameters[1];
+		return this.getParameter_Value().get(Entry.parameter.Language);
+	}
+
+	public String getName(){
+		return this.getParameter_Value().get(Entry.parameter.ID) + "." + this.getParameter_Value().get(Entry.parameter.Language);
 	}
 	
-	public String getLanguageV() {
-		return this.parameters[2];	
+	private HashMap<parameter, String> getParameter_Value() {
+		return this.parameter_Value;
 	}
 
 	public String getPlot() {
-		return this.parameters[11];
+		return this.getParameter_Value().get(Entry.parameter.Plot);
 	}
 	
 	public String getPoster() {
-		return this.parameters[12];
+		return this.getParameter_Value().get(Entry.parameter.Poster);
 	}
-	
+
 	public String getRated() {
-		return this.parameters[5];
+		return this.getParameter_Value().get(Entry.parameter.Rated);
 	}
 	
 	public String getRating() {
-		return this.parameters[14];
+		return this.getParameter_Value().get(Entry.parameter.Rating);
 	}
 
 	public String getReleased() {
-		return this.parameters[7];
+		return this.getParameter_Value().get(Entry.parameter.Released);
 	}
-
+	
 	public String getResponse() {		
-		return this.parameters[16];
+		return this.getParameter_Value().get(Entry.parameter.Response);
 	}
 
 	public String getRuntime() {
-		return this.parameters[13];
-	}
-
-	public String getTitle() {
-		return this.parameters[3];
-	}
-
-	public String getVotes() {		
-		return this.parameters[15];
+		return this.getParameter_Value().get(Entry.parameter.Runtime);
 	}
 	
-	public String getWriter() {
-		return this.parameters[9];
+	public String getTitle() {
+		return this.getParameter_Value().get(Entry.parameter.Title);
+	}
+	
+	public Collection<String> values() {
+		return this.getParameter_Value().values();
+	}
+	
+	public String getVotes() {		
+		return this.getParameter_Value().get(Entry.parameter.Votes);
 	}
 
+	public String getWriter() {
+		return this.getParameter_Value().get(Entry.parameter.Writer);
+	}
+	
 	public String getYear() {
-		return this.parameters[4];	
+		return this.getParameter_Value().get(Entry.parameter.Year);	
 	}
 
 	@Override
@@ -137,80 +232,122 @@ public class Entry implements Serializable{
 		return this.getID().hashCode();
 	}
 
+	public boolean isScraped() {
+		boolean isScraped = true;
+		Collection<String> strings = this.getParameter_Value().values();
+		for ( String s : strings ) {
+			if( s == null ) {
+				isScraped = false;
+			}
+		}
+		return isScraped;
+	}
+
 	public String setActors(String string) {
-		return this.parameters[10] = string;
+		return this.getParameter_Value().put(Entry.parameter.Actors, string);
 	}
 
 	public String setDirector(String string) {
-		return this.parameters[8] = string;
+		return this.getParameter_Value().put(Entry.parameter.Director, string);
 	}
 
 	public String setGenre(String string) {
-		return this.parameters[7] = string;
+		return this.getParameter_Value().put(Entry.parameter.Genre, string);
 	}
-
-	private final String setID(String string) {
-		return this.parameters[0] = string;
-	}
-
-	private String setLanguage(String string) {
-		this.setLanguageV(string);
-		return this.parameters[1] = string;
-	}
-
-	private String setLanguageV(String string) {
-		return this.parameters[2] = FasadeLayer3.isValidLocale(string) + "";
+	
+	private HashMap<parameter, String> setParameter_Value(HashMap<parameter, String> inParameter_Value) {
+		this.parameter_Value = inParameter_Value;
+		return this.getParameter_Value();
 	}
 
 	public String setPlot(String string) {
-		return this.parameters[11] = string;
+		return this.getParameter_Value().put(Entry.parameter.Plot, string);
 	}
-	
+
 	public String setPoster(String string) {
-		return this.parameters[12] = string;
+		return this.getParameter_Value().put(Entry.parameter.Poster, string);
 	}
 
 	public String setRated(String string) {
-		return this.parameters[5] = string;
+		return this.getParameter_Value().put(Entry.parameter.Rated, string);
 	}
 
 	public String setRating(String string) {
-		return this.parameters[14] = string;
+		return this.getParameter_Value().put(Entry.parameter.Rating, string);
 	}
 
 	public String setReleased(String string) {
-		return this.parameters[6] = string;
+		return this.getParameter_Value().put(Entry.parameter.Released, string);
 	}
 
 	public String setResponse(String string) {
-		return this.parameters[16] = string;
+		return this.getParameter_Value().put(Entry.parameter.Actors, string);
 	}
 
 	public String setRuntime(String string) {
-		return this.parameters[13] = string;
-	}
-
-	public String setTitle(String string) {
-		return this.parameters[3] = string;
-	}
-
-	public String setVotes(String string) {
-		return this.parameters[15] = string;
+		return this.getParameter_Value().put(Entry.parameter.Runtime, string);
 	}
 	
+	public String setTitle(String string) {
+		return this.getParameter_Value().put(Entry.parameter.Title, string);
+	}
+	
+	public String setVotes(String string) {
+		return this.getParameter_Value().put(Entry.parameter.Votes, string);
+	}
+
 	public String setWriter(String string) {
-		return this.parameters[9] = string;
+		return this.getParameter_Value().put(Entry.parameter.Writer, string);
 	}
 	
 	public String setYear(String string) {
-		return this.parameters[4] = string;
-	}
-
-	public String toString(){
-		return FasadeLayer3.toString(this);
+		return this.getParameter_Value().put(Entry.parameter.Year, string);
 	}
 	
-	public String getName(){
-		return this.getID() + "." + this.getLanguage();
+	public String toString(){
+		return FL3.toString(this);
+	}
+
+	public static Collection<String> labels() {
+		return Entry.getParameter_Label().values();
+	}
+	
+	public boolean isValid(){
+		boolean isValid = false;
+		//check language
+		if ( ! Entry.getKnownValidLanguages().contains(this.getLanguage())){
+			for ( int i = 0 ; i < Entry.getISOLanguages().length ; i++ ) {
+				if ( this.getLanguage().equals(Entry.getISOLanguages()[i])){
+					isValid = true;
+					break;
+				}
+			}
+		} else {
+			isValid = true;
+		}
+		return isValid;
+	}
+
+	private static String[] getISOLanguages() {
+		if (Entry.ISOLanguages == null){
+			Entry.setISOLanguages(Locale.getISOLanguages());
+		}
+		return Entry.ISOLanguages;
+	}
+
+	private static String[] setISOLanguages(String[] inISOLanguages) {
+		Entry.ISOLanguages = inISOLanguages;
+		return Entry.getISOLanguages();		
+	}
+
+	private static LinkedList<String> getKnownValidLanguages() {
+		if (Entry.knownValidLanguages == null ) {
+			Entry.setKnownValidLanguages(new LinkedList<String>());
+		}
+		return Entry.knownValidLanguages ;
+	}
+
+	private static void setKnownValidLanguages(LinkedList<String> inKnownLanguages) {
+		Entry.knownValidLanguages = inKnownLanguages;
 	}
 }

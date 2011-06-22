@@ -1,0 +1,73 @@
+package layer2;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.URL;
+
+public class FasadeLayer2 {
+
+	public static Object readSerializedObject(String inFileLocation) throws FileNotFoundException, IOException, ClassNotFoundException {
+		ObjectInputStream objIn = new ObjectInputStream(
+				new BufferedInputStream(
+						new FileInputStream(inFileLocation)));
+		Object returnSerializedObject = objIn.readObject();
+		objIn.close();			
+		return returnSerializedObject;
+	}
+	
+	public static void writeToSerialized(String inFileLocation,
+			Object inSerializedObject) throws FileNotFoundException,
+			IOException, ClassNotFoundException {
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(inFileLocation));
+		oos.writeObject(inSerializedObject);
+		oos.close();
+	}
+
+	public static File[] getFolderMovies(String inFolderMovies) {
+		return (new File(inFolderMovies)).listFiles();
+	}
+	
+	public static String readHTTPRequest(URL inURL) throws IOException {
+		return
+			new BufferedReader(
+				new InputStreamReader(
+						inURL.openConnection().getInputStream())).readLine();
+	}
+
+	public static void writeTXT(String inFileLocation, String inString) {
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter(
+					inFileLocation));
+			out.write(inString);
+			out.close();
+		} catch (IOException e) {
+			System.out.println("Exception ");
+		}
+	}
+
+	public static String readFile(File inFile) {
+		byte[] buffer = null;
+		try {
+			buffer = new byte[(int) inFile.length()];
+			BufferedInputStream f = new BufferedInputStream(new FileInputStream(inFile));
+			f.read(buffer);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return new String (buffer);
+	}
+
+	public static boolean exists(String inFile) {
+		return new File(inFile).exists();
+	}
+}

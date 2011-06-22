@@ -1,0 +1,19 @@
+package layer3;
+
+public class RepConTXT extends RepConAbstract {
+
+	public RepConTXT () {
+		super("txt");
+	}
+	@Override
+	public String convert(EntryList<Entry> inEntries, String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public String convert(EntryList<Entry> clone) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

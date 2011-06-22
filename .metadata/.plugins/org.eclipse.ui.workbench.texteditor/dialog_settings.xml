@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="309" key="DIALOG_WIDTH"/>
+		<item value="111" key="DIALOG_Y_ORIGIN"/>
+		<item value="403" key="DIALOG_HEIGHT"/>
+		<item value="79" key="DIALOG_X_ORIGIN"/>
+		<item value="1|DejaVu Sans|8.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="false" key="wrap"/>
+		<item value="false" key="isRegEx"/>
+		<item value="false" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="false" key="wholeword"/>
+		<item value="check" key="selection"/>
+		<list key="findhistory">
+			<item value="check"/>
+			<item value="Sysout"/>
+			<item value="sysout"/>
+			<item value="setPa"/>
+			<item value="parameters[2]"/>
+			<item value="setLang"/>
+			<item value="GetLang"/>
+			<item value="getLang"/>
+		</list>
+		<list key="replacehistory">
+			<item value=" "/>
+			<item value=""/>
+			<item value="key_value["/>
+			<item value="inEntry"/>
+			<item value="FasadeLayer3"/>
+			<item value="c4"/>
+			<item value="c2"/>
+			<item value="c3"/>
+		</list>
+	</section>
+</section>

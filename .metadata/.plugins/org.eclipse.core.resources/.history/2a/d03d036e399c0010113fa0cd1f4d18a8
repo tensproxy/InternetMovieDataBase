@@ -1,0 +1,44 @@
+package layer3;
+
+import java.util.HashMap;
+
+import layer3.Entry.parameter;
+
+public class IMDBAP_com_imdbapi extends IMDBAPIAbstract {
+
+	public IMDBAP_com_imdbapi() {
+		super("http://www.imdbapi.com/?i=", "");
+	}
+
+	@Override
+	public Entry constructEntry (Entry inEntry, String inScrapedString) {
+		inScrapedString = inScrapedString.replace("{", "");
+		inScrapedString = inScrapedString.replace("}", "");
+		String[] key_value = inScrapedString.split("\",\"");
+		
+		for ( int j = 0 ; j  < key_value.length ; j++ ) {
+			int lastDoubleQuote = key_value[j].lastIndexOf('"');
+			key_value[j] = key_value[j].substring(lastDoubleQuote+1);
+		}
+
+		HashMap<parameter, String> parameter_Value = new HashMap<Entry.parameter, String>();
+		parameter_Value.put(parameter.Title, key_value[0]);
+		parameter_Value.put(parameter.Year, key_value[1]);
+		parameter_Value.put(parameter.Rated, key_value[2]);
+		parameter_Value.put(parameter.Released, key_value[3]);
+		parameter_Value.put(parameter.Genre, key_value[4]);
+		parameter_Value.put(parameter.Director, key_value[5]);
+		parameter_Value.put(parameter.Writer, key_value[6]);
+		parameter_Value.put(parameter.Actors, key_value[7]);
+		parameter_Value.put(parameter.Plot, key_value[8]);
+		parameter_Value.put(parameter.Poster, key_value[9]);
+		parameter_Value.put(parameter.Runtime, key_value[10]);
+		parameter_Value.put(parameter.Rating, key_value[11]);
+		parameter_Value.put(parameter.Votes, key_value[12]);
+		parameter_Value.put(parameter.ID, key_value[13]);
+		parameter_Value.put(parameter.Response, key_value[14]);
+		parameter_Value.put(parameter.Rating, key_value[15]);
+		
+		return new Entry(parameter_Value);
+	}
+}

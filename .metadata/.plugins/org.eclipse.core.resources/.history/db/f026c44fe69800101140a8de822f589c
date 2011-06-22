@@ -1,0 +1,21 @@
+package layer3;
+
+public class RepConCSV extends RepConAbstract {
+
+	public RepConCSV() {
+		super("csv");
+	}
+
+	@Override
+	public String convert(EntryList<Entry> inEntries) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public StringBuilder toString(Entry e) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

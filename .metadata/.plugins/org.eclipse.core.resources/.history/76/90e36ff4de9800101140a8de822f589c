@@ -1,0 +1,13 @@
+package layer3;
+
+public class RepConManager {
+	
+	public enum rep {
+		txt, csv
+	}
+
+	public static RepConManager getInstance() {
+		
+	}
+
+}

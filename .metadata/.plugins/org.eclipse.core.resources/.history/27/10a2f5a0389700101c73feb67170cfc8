@@ -1,0 +1,8 @@
+package layer3;
+
+public class EntryInvalid extends EntryAbstract {	
+
+	public EntryInvalid(String inID, String inLang) throws EntryException {
+		super(inID, inLang);
+	}
+}
