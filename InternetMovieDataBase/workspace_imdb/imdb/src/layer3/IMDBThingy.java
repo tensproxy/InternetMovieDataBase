@@ -26,7 +26,7 @@ public class IMDBThingy {
 			}
 			FL3.inf("Checking if removable", 0);
 			if ( ! FL3.isDeletable() ) {
-//				throw new Exception ("Not removable!");
+				throw new Exception ("Not removable!");
 			}
 			FL3.inf("Checking if online", 0);
 			if ( ! FL3.isOnline() ) {
@@ -50,7 +50,7 @@ public class IMDBThingy {
 		return IMDBThingy.GETSINGLETON();
 	}
 	
-	private DataBase aDB = null;
+	private EntryBase aDB = null;
 	private IMDBAPIManager aIMDBAPIManger = null;
 	private RepConManager aRepConManager = null;
 	private int delDB = 0;
@@ -59,7 +59,7 @@ public class IMDBThingy {
 	private int serDB = 0;
 	
 	private IMDBThingy(){
-		this.setDB(new DataBase());
+		this.setDB(new EntryBase());
 		this.setIMDBAPIManger(IMDBAPIManager.getInstance());
 		this.setRepConManager(RepConManager.getInstance());
 	}
@@ -117,7 +117,7 @@ public class IMDBThingy {
 		FL3.inf("this.getDB().size(delDB): " + this.getDB().size(delDB), 1);
 	}
 
-	private DataBase getDB() {
+	private EntryBase getDB() {
 		return this.aDB;
 	}
 	
@@ -158,7 +158,7 @@ public class IMDBThingy {
 		}
 	}
 
-	private DataBase setDB(DataBase inDataBase) {
+	private EntryBase setDB(EntryBase inDataBase) {
 		this.aDB = inDataBase;
 		return this.getDB();
 	}

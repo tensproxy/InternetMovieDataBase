@@ -55,10 +55,10 @@ public class FL2 {
 		oos.close();
 	}
 
-	public static void writeFile(String inFileLocation, String inString) throws IOException {
+	public static void writeFile(String inFileLocation, String inData) throws IOException {
 		BufferedWriter out = new BufferedWriter(new FileWriter(
 				inFileLocation));
-		out.write(inString);
+		out.write(inData);
 		out.close();
 	}
 
@@ -67,8 +67,10 @@ public class FL2 {
 		File aFile = new File(inFileLocation);
 		if (aFile.exists()) {
 			if (aFile.isFile()) {
-		}
-			isDeleted = aFile.delete();
+				if (aFile.canWrite()) {
+					isDeleted = aFile.delete();
+				}
+			}
 		}
 		return isDeleted;			
 	}

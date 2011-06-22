@@ -15,31 +15,43 @@ public class FL3 {
 	
 	private static final String[] ISOLANGUAGES = Locale.getISOLanguages();
 	private static LinkedList<Locale> LOCALES = null;
-	//TODO Check read and write all folders
-	//TODO: file means reading from it, folder means scanning folder structure
-	private static final String INPUTSOURCE = "files.txt";//"/media/one/media.video/com.imdb.www/";
-	private static final String READFILESER = "movies.ser";
+	private static final String INPUTSOURCE = "inputsource.imdb";
+	private static final String INPUTSOURCESER = "inputsource.ser";
 	private static final String SEPARATOR = System.getProperty("line.separator");
-	private static final String WRITETESTENDING = "test";
-	private static final String WRITETESTURL = "http://www.xkcd.com";
-	private static final String FILELOCATION = "movies";
+	private static final String TESTWRITABLE = "test.imdb";
+	private static final String TESTONLINE = "http://www.xkcd.com";
+	private static final String OUTPUTSOURCE = "output";
+	
+	public static String[] getMovieTuples() {
+		String [] sources = null;
+		File aFile = new File (INPUTSOURCE);
+		if (aFile.isFile()){
+			sources = FL3.getMovieTuplesFromFile(aFile);
+		} else {
+			sources = FL3.getMovieTuplesFromDirectory(aFile);
+		}
+		return sources;
+	}
 	
 	public static String[] getMovieTuplesFromDirectory(File inFile) {
+		File aFile = inFile.getAbsoluteFile().getParentFile();
 		String[] foldernames = null;
-		if (inFile.exists()) {
-			File[] files = layer2.FL2.getFolder(inFile);
-			foldernames = new String[files.length];
-			for ( int i = 0 ; i < files.length ; i++ ) {
-				foldernames[i] = files[i].getName();
-			}			
-		} else {
-			try {
-				throw new FileNotFoundException(inFile.getAbsolutePath());
-			} catch (FileNotFoundException e) {
-				FL3.log(e);
-			}
-		}
+		File[] files = layer2.FL2.getFolder(aFile);
+		foldernames = new String[files.length];
+		for ( int i = 0 ; i < files.length ; i++ ) {
+			foldernames[i] = files[i].getName();
+		}			
 		return foldernames;
+	}
+	
+	public static String[] getMovieTuplesFromFile(File inFile){
+		String [] localProxyFiles = null;
+		try {
+			localProxyFiles = layer2.FL2.readFile(inFile).split(SEPARATOR);
+		} catch (Exception e) {
+			FL3.log(e);
+		}
+		return localProxyFiles;
 	}
 	
 	private static String[] GETISOLANGUAGES() {
@@ -57,7 +69,7 @@ public class FL3 {
 	public static EntryList<Entry> getSerializedEntries() {
 		Object o = null;
 		try {
-			o = layer2.FL2.readSerializedObject(READFILESER);
+			o = layer2.FL2.readSerializedObject(FL3.INPUTSOURCESER);
 		} catch (Exception e) {
 			FL3.log(e);
 			o = new EntryList<Entry>();
@@ -86,16 +98,6 @@ public class FL3 {
 	
 	public static void inf(String inString, int importance) {
 		System.out.println(inString);
-	}
-	
-	public static String[] getMovieTuplesFromFile(File inFile){
-		String [] localProxyFiles = null;
-		try {
-			localProxyFiles = layer2.FL2.readFile(inFile).split(SEPARATOR);
-		} catch (Exception e) {
-			FL3.log(e);
-		}
-		return localProxyFiles;
 	}
 
 	public static String readScrapedString(URL inURL){
@@ -174,7 +176,7 @@ public class FL3 {
 	
 	public static boolean writeFile(EntryList<Entry> inEntries, RepConable inRepconable) {
 		Object data = inRepconable.convert(inEntries);
-		String fileLocation = FL3.getFileLocation() + inRepconable.getFileEnding();
+		String fileLocation = FL3.OUTPUTSOURCE + inRepconable.getFileEnding();
 		boolean isWritten = false;
 		try {
 			if(data instanceof String){
@@ -199,15 +201,11 @@ public class FL3 {
 		}
 		return isDeleted;
 	}
-	
-	private static String getTestFile(){
-		return FILELOCATION + WRITETESTENDING;
-	}
 
 	public static boolean isWritable() {
 		boolean isWritten = true;
 		try {
-			FL2.writeFile("Test", FL3.getTestFile());
+			FL2.writeFile(FL3.TESTWRITABLE, FL3.TESTWRITABLE);
 		} catch (Exception e) {
 			FL3.log(e);
 		}
@@ -215,13 +213,13 @@ public class FL3 {
 	}
 
 	public static boolean isDeletable() {
-		return FL2.deleteFile(FL3.getTestFile());
+		return FL3.deleteFile(FL3.TESTWRITABLE);
 	}
 
 	public static boolean isOnline(){
 		boolean isOnline = false;
 		try {
-			String aString = FL2.readHTTPRequest(new URL(FL3.WRITETESTURL));
+			String aString = FL2.readHTTPRequest(new URL(FL3.TESTONLINE));
 			if (aString != null){
 				isOnline = true;
 			}
@@ -229,20 +227,5 @@ public class FL3 {
 			FL3.log(e);
 		}
 		return isOnline;
-	}
-
-	private static String getFileLocation() {
-		return FL3.FILELOCATION;
-	}
-
-	public static String[] getMovieTuples() {
-		String [] sources = null;
-		File aFile = new File (INPUTSOURCE);
-		if (aFile.isDirectory()){
-			sources = FL3.getMovieTuplesFromDirectory(aFile);
-		} else {
-			sources = FL3.getMovieTuplesFromFile(aFile);
-		}
-		return sources;
 	}
 }
