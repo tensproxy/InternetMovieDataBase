@@ -26,7 +26,7 @@ public class IMDBThingy {
 			}
 			FL3.inf("Checking if removable", 0);
 			if ( ! FL3.isDeletable() ) {
-				throw new Exception ("Not removable!");
+//				throw new Exception ("Not removable!");
 			}
 			FL3.inf("Checking if online", 0);
 			if ( ! FL3.isOnline() ) {
@@ -49,14 +49,14 @@ public class IMDBThingy {
 		IMDBThingy.SINGLETON = inIMDBThingy;
 		return IMDBThingy.GETSINGLETON();
 	}
+	
 	private DataBase aDB = null;
 	private IMDBAPIManager aIMDBAPIManger = null;
-	
 	private RepConManager aRepConManager = null;
+	private int delDB = 0;
+	private int filDB = 0;
 	private int invDB = 0;
 	private int serDB = 0;
-	private int filDB = 0;
-	private int delDB = 0;
 	
 	private IMDBThingy(){
 		this.setDB(new DataBase());
@@ -65,6 +65,8 @@ public class IMDBThingy {
 	}
 
 	public void calcDB() {
+		FL3.inf("calcDB", 0);
+
 		// add entries from serialized file
 		serDB = this.getDB().newList(FL3.getSerializedEntries());
 		FL3.inf("Amount of serialized movies: " + this.getDB().size(serDB), 1);
@@ -81,6 +83,8 @@ public class IMDBThingy {
 	}
 
 	public void checkDB() {
+		FL3.inf("checkDB", 0);
+		
 		invDB = this.getDB().newList();
 		Iterator<Entry> iterator = null;
 		// check valids in serDB
@@ -111,7 +115,6 @@ public class IMDBThingy {
 		FL3.inf("this.getDB().size(serDB): " + this.getDB().size(serDB), 1);
 		FL3.inf("this.getDB().size(valDB): " + this.getDB().size(filDB), 1);
 		FL3.inf("this.getDB().size(delDB): " + this.getDB().size(delDB), 1);
-		System.out.println(this.getDB().clone(filDB).toString());
 	}
 
 	private DataBase getDB() {
@@ -127,6 +130,8 @@ public class IMDBThingy {
 	}
 
 	public void scrapeDB() {
+		FL3.inf("scrapeDB", 0);
+
 		if (IMDBThingy.isOnline()) {
 			FL3.inf("Scrapping...", 1);
 			Iterator<Entry> iterator = this.getDB().iterator(filDB);
@@ -174,18 +179,22 @@ public class IMDBThingy {
 	} 
 	
 	public void writeCSV() {
+		FL3.inf("writeCSV", 0);
 		FL3.writeFile(this.aDB.clone(serDB), this.aRepConManager.getRepCon(RepConManager.rep.csv));
 	}
 
+	public void writeHTML() {
+		FL3.inf("writeHTML", 0);
+		FL3.writeFile(this.aDB.clone(serDB), this.aRepConManager.getRepCon(RepConManager.rep.html));
+	}
+
 	public void writeSER() {
+		FL3.inf("writeSER", 0);
 		FL3.writeFile(this.aDB.clone(serDB), this.aRepConManager.getRepCon(RepConManager.rep.ser));
 	}
 
 	public void writeTXT() {
+		FL3.inf("writeTXT", 0);
 		FL3.writeFile(this.aDB.clone(serDB), this.aRepConManager.getRepCon(RepConManager.rep.txt));
-	}
-
-	public void writeHTML() {
-		FL3.writeFile(this.aDB.clone(serDB), this.aRepConManager.getRepCon(RepConManager.rep.html));
 	}
 }
